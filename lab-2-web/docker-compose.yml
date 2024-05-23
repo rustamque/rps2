@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./docker
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SECRET_KEY=django-insecure-^drm=^we5*27!1qe+ku1quvh$c*lzy5w-^td&c=yn(_2-n9c#_
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+      - DJANGO_DB_NAME=bucket_db
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD=bucket_password
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - 3000:3000
+    environment:
+      - REACT_APP_API_URL=http://bucket-sort.ru/api
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=bucket_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=bucket_password
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  postgres_data:
