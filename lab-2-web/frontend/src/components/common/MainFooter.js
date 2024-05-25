@@ -17,18 +17,13 @@ function MainFooter() {
         <Navbar expand="lg" className="bg-body-tertiary" id="main-footer">
             <Container>
                 <Nav className="me-auto">
-                    <Nav.Link href="https://gitlab.com/test-tasks9135311/lab-2/-/tree/web">
+                    <Nav.Link href="https://github.com/rustamque/rps2/tree/RPS3">
                         <Git />
                     </Nav.Link>
-                    <Nav.Link href="https://t.me/delightful_angels">
+                    <Nav.Link href="https://t.me/rstmque">
                         <Telegram className="align-center" />
                     </Nav.Link>
                 </Nav>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav className="justify-content-end">
-                        <Nav.Link href="http://bucket-sort.ru/">bucket-sort.ru</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
             </Container>
         </Navbar>
     );

@@ -7,7 +7,7 @@ services:
       - DJANGO_SETTINGS_MODULE=config.settings_prod
   frontend:
     environment:
-      - REACT_APP_API_URL=http://bucket-sort.ru/api
+      - REACT_APP_API_URL=http://localhost:8000/api
   nginx:
     build:
       context: .

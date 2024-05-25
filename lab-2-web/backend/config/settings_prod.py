@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = ['bucket-sort.ru', 'localhost', '127.0.0.1', '62.113.106.214']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
