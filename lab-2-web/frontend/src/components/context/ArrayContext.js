@@ -32,9 +32,9 @@ export function ArrayProvider({ children }) { // Функция, которая 
     const [sortedArray, setSortedArray] = useState([]); // Инициализируем состояние отсортированного массива как пустой массив.
     const [executionTime, setExecutionTime] = useState(null); // Инициализируем состояние времени выполнения как null.
 
-    return ( // Возвращаем JSX-разметку компонента ArrayProvider.
+    return ( 
         <ArrayContext.Provider 
-            value={{ sortedArray, setSortedArray, executionTime, setExecutionTime }} // Устанавливаем значение контекста. 
+            value={{ sortedArray, setSortedArray, executionTime, setExecutionTime }} 
         >
             {children} 
         </ArrayContext.Provider>

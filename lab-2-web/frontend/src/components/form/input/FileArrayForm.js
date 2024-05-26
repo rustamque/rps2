@@ -130,33 +130,33 @@ function FileArrayForm({ // Функция, которая рендерит ко
                 controlId="file-upload"
                 label="Выберите файл:"
                 type="file"
-                accept=".txt" // Устанавливаем тип файлов, которые можно выбрать.
-                onChange={handleFileChange} // Устанавливаем обработчик события изменения выбора файла.
+                accept=".txt" 
+                onChange={handleFileChange} 
             />
             <ExtractTextArea
                 controlId="file-array"
                 label="Загруженный массив:"
-                value={array.join(", ")} // Отображаем массив,  соединяя  элементы  запятыми.
-                rows={4} // Количество строк текстового поля.
-                disabled // Деактивируем текстовое поле, чтобы пользователь не мог его редактировать.
+                value={array.join(", ")} 
+                rows={4}
+                disabled 
             />
             {error && <p className="text-danger text-end">{error}</p>} 
             {info && <p className="text-primary text-end">{info}</p>} 
             <ExtractButtonGroup> 
                 <Button
-                    variant="info" // Цвет кнопки "info".
-                    className="d-flex align-items-center gap-1" // Стили кнопки.
+                    variant="info" 
+                    className="d-flex align-items-center gap-1" 
                     type="submit"
-                    onClick={() => setIsSaving(true)} // Устанавливаем состояние "Сохранение" при клике на кнопку.
-                    disabled={array.length === 0} // Кнопка деактивирована,  если  массив пуст.
+                    onClick={() => setIsSaving(true)} 
+                    disabled={array.length === 0} 
                 >
                     <CloudUpload /> Сохранить в базу 
                 </Button>
                 <Button
-                    variant="primary" // Цвет кнопки "primary".
+                    variant="primary" 
                     type="submit"
-                    className="d-flex align-items-center gap-1" // Стили кнопки.
-                    disabled={!isFileValid || array.length === 0} // Кнопка деактивирована,  если  файл  не  валидный  или  массив  пуст. 
+                    className="d-flex align-items-center gap-1" 
+                    disabled={!isFileValid || array.length === 0}  
                 >
                     <SortNumericDown /> Отсортировать 
                 </Button>
@@ -165,4 +165,4 @@ function FileArrayForm({ // Функция, которая рендерит ко
     );
 }
 
-export default FileArrayForm; // Экспортируем компонент FileArrayForm по умолчанию.
+export default FileArrayForm; 

@@ -146,12 +146,12 @@ function ArraysPage({ apiUrl }) { // Функция, которая рендер
                 {searchId === null && !error && <h4>Всего массивов: {numArrays}</h4>}  
 
                 <SearchForm searchId={searchId} onSearchChange={setSearchId} /> 
-                {error ? ( // Отображаем сообщение об ошибке, если оно есть. 
+                {error ? ( 
                     <h4 className="text-danger">{error}</h4>
-                ) : arrays.length > 0 ? ( // Отображаем таблицу массивов, если есть данные. 
+                ) : arrays.length > 0 ? (  
                     <ArraysTable arrays={arrays} onEdit={handleEdit} /> 
                 ) : (
-                    <h4>Массив с данным ID не найден.</h4> // Отображаем сообщение, если массивов нет. 
+                    <h4>Массив с данным ID не найден.</h4> 
                 )}
 
                 <ArrayPagination
@@ -162,14 +162,14 @@ function ArraysPage({ apiUrl }) { // Функция, которая рендер
                 />
             </Container>
 
-            {editingArray && ( // Отображаем модальное окно для редактирования массива, если оно открыто.
+            {editingArray && ( 
                 <EditArrayModal
                     show={showEditModal}
-                    handleClose={() => setShowEditModal(false)} // Закрытие модального окна.
+                    handleClose={() => setShowEditModal(false)} 
                     array={editingArray}
-                    handleSave={handleSave} // Функция для обработки сохранения. 
-                    handleSort={handleSort} // Функция для обработки сортировки. 
-                    handleDelete={handleDelete} // Функция для обработки удаления. 
+                    handleSave={handleSave} 
+                    handleSort={handleSort}  
+                    handleDelete={handleDelete}  
                 />
             )}
             <MainFooter /> 

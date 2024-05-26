@@ -10,16 +10,16 @@ import React from "react"; // Импортируем React для работы �
  * @param {Function} props.handleFillMethodChange - Функция для обработки изменений в выбранном методе заполнения.
  * @returns {JSX.Element} Рендеринг компонента FillMethodSelector.
  */
-function FillMethodSelector({ fillMethod, handleFillMethodChange }) { // Функция, которая рендерит компонент FillMethodSelector.
-    return ( // Возвращает JSX-разметку компонента.
+function FillMethodSelector({ fillMethod, handleFillMethodChange }) { 
+    return ( 
         <Form.Group controlId="fill-method" className="mb-3"> 
             <Form.Label>
                 <strong>Выберите метод заполнения</strong>
             </Form.Label>
-            <Form.Select // Используем компонент Form.Select из react-bootstrap для создания выпадающего списка.
-                aria-label="select-method" // Устанавливаем aria-label для доступности.
-                value={fillMethod} // Устанавливаем текущее значение выпадающего списка. 
-                onChange={handleFillMethodChange} // Устанавливаем обработчик изменения значения выпадающего списка.
+            <Form.Select 
+                aria-label="select-method" 
+                value={fillMethod} 
+                onChange={handleFillMethodChange} 
             >
                 <option value="keyboard">Ручной ввод элементов</option>
                 <option value="random">Генерация элементов</option>

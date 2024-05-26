@@ -116,18 +116,18 @@ function DatabaseArrayForm({ // Функция, которая рендерит 
                 .
             </p>
 
-            {availableArrays.length > 0 && ( // Отображаем таблицу и пагинацию, если есть доступные массивы.
+            {availableArrays.length > 0 && ( 
                 <>
                     <ArrayTable
-                        arrays={availableArrays} // Передаем массив доступных массивов в таблицу.
-                        onEdit={handleArraySelect} // Устанавливаем обработчик события выбора массива.
-                        size="sm" // Устанавливаем размер таблицы.
+                        arrays={availableArrays} 
+                        onEdit={handleArraySelect} 
+                        size="sm" 
                     />
                     <ArrayPagination
-                        page={page} // Текущая страница пагинации.
-                        setPage={setPage} // Функция для обновления состояния страницы.
-                        numArrays={numArrays} // Общее количество массивов.
-                        arraysLength={availableArrays.length} // Количество массивов на текущей странице.
+                        page={page} 
+                        setPage={setPage} 
+                        numArrays={numArrays} 
+                        arraysLength={availableArrays.length} 
                     />
                 </>
             )}
@@ -136,28 +136,28 @@ function DatabaseArrayForm({ // Функция, которая рендерит 
                 controlId="database-array"
                 name="data"
                 label="Выбранный массив:"
-                value={array.join(" ")} // Отображаем массив в виде строки, разделяя значения пробелами.
-                rows={4} // Количество видимых строк текстового поля.
-                onChange={handleInputChange} // Обработчик изменения значения текстового поля.
-                disabled={array.length === 0} // Деактивируем текстовое поле, если массив пуст.
+                value={array.join(" ")} 
+                rows={4} 
+                onChange={handleInputChange} 
+                disabled={array.length === 0} 
             />
             {error && <p className="text-danger text-end">{error}</p>} 
             {info && <p className="text-primary text-end">{info}</p>} 
             <ExtractButtonGroup> 
                 <Button
-                    variant="info" // Устанавливаем цвет кнопки.
-                    type="submit" // Тип кнопки (по умолчанию submit).
-                    className="d-flex align-items-center gap-1" // Устанавливаем стили кнопки.
-                    onClick={() => setIsSaving(true)} // Обработчик события клика: устанавливаем состояние "Сохранение".
-                    disabled={array.length <= 1} // Деактивируем кнопку, если массив пуст или содержит только один элемент.
+                    variant="info" 
+                    type="submit" 
+                    className="d-flex align-items-center gap-1" 
+                    onClick={() => setIsSaving(true)}
+                    disabled={array.length <= 1} 
                 >
                     <CloudUpload /> Сохранить в базу 
                 </Button>
                 <Button
-                    variant="primary" // Устанавливаем цвет кнопки.
-                    type="submit" // Тип кнопки (по умолчанию submit).
-                    className="d-flex align-items-center gap-1" // Устанавливаем стили кнопки.
-                    disabled={array.length <= 1} // Деактивируем кнопку, если массив пуст или содержит только один элемент.
+                    variant="primary" 
+                    type="submit" 
+                    className="d-flex align-items-center gap-1" 
+                    disabled={array.length <= 1} 
                 >
                     <SortNumericDown /> Отсортировать 
                 </Button>
@@ -166,4 +166,4 @@ function DatabaseArrayForm({ // Функция, которая рендерит 
     );
 }
 
-export default DatabaseArrayForm; // Экспортируем компонент DatabaseArrayForm по умолчанию.
+export default DatabaseArrayForm; 

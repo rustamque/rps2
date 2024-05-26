@@ -20,7 +20,7 @@ function ExtractInputField({ // Функция, которая рендерит 
     type, // Тип поля ввода (например, text, number).
     ...props // Остальные свойства, которые будут переданы компоненту Form.Control.
 }) {
-    return ( // Возвращает JSX-разметку компонента.
+    return ( 
         <Form.Group controlId={controlId} className="mb-3"> 
             <Form.Label> 
                 <strong>{label}</strong> 
@@ -30,4 +30,4 @@ function ExtractInputField({ // Функция, которая рендерит 
     );
 }
 
-export default ExtractInputField; // Экспортируем компонент ExtractInputField по умолчанию.
+export default ExtractInputField; 

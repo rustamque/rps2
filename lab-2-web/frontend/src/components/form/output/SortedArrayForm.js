@@ -44,7 +44,7 @@ export async function performBucketSort( // Асинхронная функци�
 function SortedArrayForm() { // Функция, которая рендерит компонент SortedArrayForm.
     const { sortedArray = [], executionTime } = useArrayContext(); // Получаем состояние отсортированного массива и время выполнения из контекста.
 
-    return ( // Возвращаем JSX-разметку компонента.
+    return ( 
         <>
             <h3>Вывод</h3>
             <Form.Group controlId="sorted-array"> 
@@ -52,13 +52,13 @@ function SortedArrayForm() { // Функция, которая рендерит 
                     <strong>Отсортированный массив:</strong>
                 </Form.Label>
                 <Form.Control
-                    as="textarea" // Используем  Form.Control  в  режиме  textarea  для  отображения  массива. 
+                    as="textarea"  
                     rows={4}
-                    value={sortedArray ? sortedArray.join(", ") : ""} // Отображаем отсортированный массив, если он не пустой,  соединяя  элементы  запятыми. 
-                    readOnly // Запрещаем редактирование текстового поля.
-                    disabled // Деактивируем текстовое поле,  так как оно  только  для  отображения. 
+                    value={sortedArray ? sortedArray.join(", ") : ""}    
+                    readOnly 
+                    disabled 
                 />
-                {executionTime !== null && ( // Отображаем время выполнения,  если  оно  доступно. 
+                {executionTime !== null && ( 
                     <p className="text-secondary">
                         <strong>Время работы:</strong> {executionTime} секунд.
                         <br />
@@ -69,4 +69,4 @@ function SortedArrayForm() { // Функция, которая рендерит 
     );
 }
 
-export default SortedArrayForm; // Экспортируем компонент SortedArrayForm по умолчанию.
+export default SortedArrayForm; 

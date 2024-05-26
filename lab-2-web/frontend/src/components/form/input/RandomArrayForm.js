@@ -97,22 +97,22 @@ function RandomArrayForm({ // Функция, которая рендерит к
                 label="Случайный массив:"
                 value={array.join(", ")}
                 rows={4}
-                disabled // Текстовое поле для отображения сгенерированного массива, не редактируется.
+                disabled 
             />
             <ExtractInputField
                 controlId="num-elements"
                 label="Количество элементов:"
                 value={numElements}
-                onChange={(e) => setNumElements(e.target.value)} // Обработчик изменения значения поля ввода.
+                onChange={(e) => setNumElements(e.target.value)} 
                 type="number"
                 step="0"
-                min="1" // Устанавливаем минимальное значение для поля ввода.
+                min="1" 
             />
             <ExtractInputField
                 controlId="min-value"
                 label="Минимальное значение:"
                 value={minValue}
-                onChange={(e) => setMinValue(e.target.value)} // Обработчик изменения значения поля ввода.
+                onChange={(e) => setMinValue(e.target.value)} 
                 type="number"
                 step="0"
             />
@@ -120,7 +120,7 @@ function RandomArrayForm({ // Функция, которая рендерит к
                 controlId="max-value"
                 label="Максимальное значение:"
                 value={maxValue}
-                onChange={(e) => setMaxValue(e.target.value)} // Обработчик изменения значения поля ввода.
+                onChange={(e) => setMaxValue(e.target.value)} 
                 type="number"
                 step="0"
             />
@@ -128,26 +128,26 @@ function RandomArrayForm({ // Функция, которая рендерит к
             {info && <p className="text-primary text-end">{info}</p>} 
             <ExtractButtonGroup> 
                 <Button
-                    variant="secondary" // Цвет кнопки "вторичный".
-                    onClick={handleAddRandomArray} // Обработчик события клика: генерирует случайный массив.
-                    className="d-flex align-items-center gap-1" // Стили кнопки.
+                    variant="secondary" 
+                    onClick={handleAddRandomArray} 
+                    className="d-flex align-items-center gap-1" 
                 >
                     <ArrowRepeat /> Сгенерировать 
                 </Button>
                 <Button
-                    variant="info" // Цвет кнопки "info".
+                    variant="info" 
                     type="submit" 
-                    className="d-flex align-items-center gap-1" // Стили кнопки.
-                    onClick={() => setIsSaving(true)} // Устанавливаем состояние "Сохранение" при клике на кнопку.
-                    disabled={array.length === 0} // Деактивируем кнопку,  если  массив пуст.
+                    className="d-flex align-items-center gap-1"
+                    onClick={() => setIsSaving(true)} 
+                    disabled={array.length === 0} 
                 >
                     <CloudUpload /> Сохранить в базу 
                 </Button>
                 <Button
-                    variant="primary" // Цвет кнопки "первичный".
+                    variant="primary" 
                     type="submit"
-                    className="d-flex align-items-center gap-1" // Стили кнопки.
-                    disabled={array.length === 0} // Кнопка деактивирована,  если  массив  пуст. 
+                    className="d-flex align-items-center gap-1" 
+                    disabled={array.length === 0} 
                 >
                     <SortNumericDown /> Отсортировать 
                 </Button>
@@ -156,4 +156,4 @@ function RandomArrayForm({ // Функция, которая рендерит к
     );
 }
 
-export default RandomArrayForm; // Экспортируем компонент RandomArrayForm по умолчанию.
+export default RandomArrayForm; 

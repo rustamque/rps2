@@ -8,16 +8,16 @@ import { Form } from "react-bootstrap"; // Импортируем компоне
  * @param {ReactNode} children - Дочерние элементы, которые будут включены в группу кнопок.
  * @returns {JSX.Element} Рендеринг элемента React для группы кнопок.
  */
-function ExtractButtonGroup({ children, ...props }) { // Функция, которая рендерит компонент группы кнопок.
-    return ( // Возвращает JSX-разметку компонента.
+function ExtractButtonGroup({ children, ...props }) { 
+    return ( 
         <Form.Group
-            controlId="button-group" // ID группы кнопок.
-            className="mb-2 d-flex gap-2 justify-content-end align-items-center flex-wrap" // Классы для стилизации (отступы, выравнивание, обтекание).
-            {...props} // Передаем все остальные свойства в компонент Form.Group.
+            controlId="button-group"
+            className="mb-2 d-flex gap-2 justify-content-end align-items-center flex-wrap" 
+            {...props} 
         >
-            {children} // Отображаем дочерние элементы (кнопки) внутри группы.
+            {children} 
         </Form.Group>
     );
 }
 
-export default ExtractButtonGroup; // Экспортируем компонент ExtractButtonGroup по умолчанию.
+export default ExtractButtonGroup; 

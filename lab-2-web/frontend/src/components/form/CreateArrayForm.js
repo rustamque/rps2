@@ -121,7 +121,7 @@ function CreateArrayForm({ apiUrl }) { // Функция, которая рен�
         setIsWholeArrayInput(false); // Сбрасываем состояние ввода массива через пробел.
     };
 
-    const methodComponents = { // Объект,  который  содержит  компоненты  для  разных  методов  заполнения. 
+    const methodComponents = { 
         keyboard: (
             <KeyboardArrayForm
                 array={array}

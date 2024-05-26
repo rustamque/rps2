@@ -12,8 +12,8 @@ import "../../index.css"; // Импорт стилей для приложени
  * @component
  * @returns {JSX.Element} Рендеринг элемента React для главного футера.
  */
-function MainFooter() { // Функция, которая рендерит компонент футера.
-    return ( // Возвращает JSX-разметку компонента.
+function MainFooter() { 
+    return ( 
         <Navbar expand="lg" className="bg-body-tertiary" id="main-footer"> 
             <Container> 
                 <Nav className="me-auto"> 

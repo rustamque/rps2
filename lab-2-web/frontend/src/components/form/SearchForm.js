@@ -10,18 +10,18 @@ import React from "react"; // Импортируем React для работы �
  * @param {Function} props.onSearchChange - Функция для обработки изменений в ID поиска.
  * @returns {JSX.Element} Рендеринг компонента SearchForm.
  */
-function SearchForm({ searchId, onSearchChange }) { // Функция, которая рендерит компонент SearchForm.
-    return ( // Возвращает JSX-разметку компонента.
+function SearchForm({ searchId, onSearchChange }) { 
+    return ( 
         <Form.Group className="mb-3"> 
-            <Form.Control // Используем компонент Form.Control из react-bootstrap для создания поля ввода.
-                id="search-form" // Устанавливаем ID поля ввода.
-                type="text" // Устанавливаем тип поля ввода (текст).
-                placeholder="Поиск по ID массива" // Устанавливаем текст-заполнитель для поля ввода.
-                value={searchId || ""} // Устанавливаем значение поля ввода. 
-                onChange={(e) => onSearchChange(e.target.value || null)} // Устанавливаем обработчик изменения значения поля ввода.
+            <Form.Control 
+                id="search-form" 
+                type="text" 
+                placeholder="Поиск по ID массива" 
+                value={searchId || ""} 
+                onChange={(e) => onSearchChange(e.target.value || null)} 
             />
         </Form.Group>
     );
 }
 
-export default SearchForm; // Экспортируем компонент SearchForm по умолчанию.
+export default SearchForm; 

@@ -1,10 +1,9 @@
-import { SortNumericDown, CloudUpload, Trash } from "react-bootstrap-icons"; // Импортируем иконки из библиотеки react-bootstrap-icons.
-import ExtractButtonGroup from "../../extract/ExtractButtonGroup"; // Импорт компонента "Группа кнопок" (ExtractButtonGroup).
-import ExtractInputField from "../../extract/ExtractInputField"; // Импорт компонента "Поле ввода" (ExtractInputField).
-import ExtractTextArea from "../../extract/ExtractTextArea"; // Импорт компонента "Текстовое поле" (ExtractTextArea).
-import { Form, Button } from "react-bootstrap"; // Импорт компонентов "Форма" (Form) и "Кнопка" (Button) из библиотеки react-bootstrap.
-import React from "react"; // Импорт React для работы с компонентами.
-
+import ExtractButtonGroup from "../extract/ExtractButtonGroup";
+import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import { Trash, SortNumericDown, CloudUpload } from "react-bootstrap-icons";
 /**
  * Компонент EditArrayModal отображает модальное окно для редактирования данных массива, включая добавление, сортировку и удаление.
  *
@@ -94,7 +93,7 @@ function EditArrayModal({ // Функция, которая рендерит к�
         handleClose(); // Закрываем модальное окно.
     };
 
-    return ( // Возвращает JSX-разметку компонента.
+    return ( 
         <Modal show={show} onHide={handleClose} size="lg"> 
             <Modal.Header closeButton>
                 <Modal.Title>Редактировать массив</Modal.Title> 
@@ -115,10 +114,10 @@ function EditArrayModal({ // Функция, которая рендерит к�
                         </Form.Label>
                         <Form.Control
                             as="textarea"
-                            name="data" // Имя поля ввода.
+                            name="data" 
                             rows={4}
-                            value={editedArray.data.join(" ")} // Отображаем  данные  массива  в  виде  строки. 
-                            onChange={handleInputChange} // Обработчик изменения значения поля ввода.
+                            value={editedArray.data.join(" ")} 
+                            onChange={handleInputChange} 
                         />
                     </Form.Group>
                 </Form>
@@ -126,23 +125,23 @@ function EditArrayModal({ // Функция, которая рендерит к�
             <Modal.Footer> 
                 <ExtractButtonGroup> 
                     <Button
-                        variant="secondary" // Цвет кнопки "вторичный".
+                        variant="secondary" 
                         className="d-flex align-items-center gap-1"
-                        onClick={saveChangesSort} // Обработчик события клика:  сохранение изменений и сортировка. 
+                        onClick={saveChangesSort}  
                     >
                         <SortNumericDown /> Отсортировать 
                     </Button>
                     <Button
-                        variant="primary" // Цвет кнопки "первичный".
+                        variant="primary" 
                         className="d-flex align-items-center gap-1"
-                        onClick={saveChangesEdit} // Обработчик события клика: сохранение изменений.
+                        onClick={saveChangesEdit} 
                     >
                         <CloudUpload /> Сохранить 
                     </Button>
                     <Button
-                        variant="danger" // Цвет кнопки "опасность".
+                        variant="danger" 
                         className="d-flex align-items-center gap-1"
-                        onClick={saveChangesDelete} // Обработчик события клика: сохранение изменений и удаление.
+                        onClick={saveChangesDelete} 
                     >
                         <Trash /> {""} Удалить 
                     </Button>

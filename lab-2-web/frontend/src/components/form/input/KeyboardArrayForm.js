@@ -88,12 +88,12 @@ function KeyboardArrayForm({ // Функция, которая рендерит 
                 <Form.Check 
                     type="checkbox" 
                     label="Ввод через пробел" 
-                    checked={isWholeArrayInput}  // Флаг,  указывающий  на  ввод  целого  массива  через  пробел. 
-                    onChange={handleWholeArrayInputChange} // Обработчик изменения состояния чекбокса.
+                    checked={isWholeArrayInput}   
+                    onChange={handleWholeArrayInputChange} 
                 />
             </Form.Group>
 
-            {isWholeArrayInput ? ( //  Отображаем  секцию  ввода  целого  массива,  если  чекбокс  "Ввод  через  пробел"  активен. 
+            {isWholeArrayInput ? ( 
                 <>
                     <p className="text-secondary">
                         Пишите элементы поочередно, разделяя их пробелом. Это удобнее при
@@ -102,18 +102,18 @@ function KeyboardArrayForm({ // Функция, которая рендерит 
                         Разрешен ввод только целых чисел, лишние пробелы будут заменены
                         нулём.
                     </p>
-                    <ExtractTextArea //  Используем  компонент  ExtractTextArea  для  ввода  целого  массива. 
+                    <ExtractTextArea  
                         controlId="whole-array"
                         name="data"
                         label="Введите массив:"
-                        value={Array.isArray(array.data) ? array.data.join(" ") : ""} //  Отображаем  значение  массива  в  виде  строки,  разделяя  элементы  пробелами. 
+                        value={Array.isArray(array.data) ? array.data.join(" ") : ""} 
                         rows={4}
-                        onChange={handleInputChange} //  Обработчик  изменения  значения  текстового  поля.
+                        onChange={handleInputChange} 
                     />
                 </>
-            ) : ( //  Отображаем  секцию  ввода  отдельных  элементов,  если  чекбокс  "Ввод  через  пробел"  неактивен. 
+            ) : ( 
                 <>
-                    {array.map((element, index) => ( //  Итерируем  по  массиву,  отображая  каждый  элемент  в  отдельном  поле  ввода.
+                    {array.map((element, index) => ( 
                         <Form.Group controlId={`element-${index}`} key={index}> 
                             <Form.Label>Элемент {index + 1}</Form.Label>  
                             <Form.Control type="text" value={element} disabled />  
@@ -123,12 +123,12 @@ function KeyboardArrayForm({ // Функция, которая рендерит 
                         <strong>Новый элемент:</strong>
                     </Form.Label>
                     <Form.Group controlId="current-element" className="mb-3 d-flex"> 
-                        {array.length >= 0 && ( //  Отображаем  поле  ввода  только  если  массив  не  пустой. 
+                        {array.length >= 0 && ( 
                             <Form.Control
-                                type="number" //  Тип  поля  ввода  -  число.
-                                value={currentElement} //  Текущее  значение  поля  ввода. 
-                                onChange={(e) => setCurrentElement(e.target.value)} //  Обработчик  изменения  значения. 
-                                onBlur={handleInputBlur} //  Обработчик  события  onBlur  (когда  фокус  с  поля  ввода  убирается).
+                                type="number" 
+                                value={currentElement}  
+                                onChange={(e) => setCurrentElement(e.target.value)} 
+                                onBlur={handleInputBlur} 
                             />
                         )}
                     </Form.Group>
@@ -138,19 +138,19 @@ function KeyboardArrayForm({ // Функция, которая рендерит 
             {info && <p className="text-primary text-end">{info}</p>} 
             <ExtractButtonGroup> 
                 <Button
-                    variant="info" // Цвет кнопки "info".
-                    className="d-flex align-items-center gap-1" // Стили кнопки.
+                    variant="info" 
+                    className="d-flex align-items-center gap-1"
                     type="submit"
-                    onClick={() => setIsSaving(true)} // Устанавливаем состояние "Сохранение" при клике на кнопку.
-                    disabled={array.length === 0} // Деактивируем кнопку,  если  массив пуст.
+                    onClick={() => setIsSaving(true)} 
+                    disabled={array.length === 0} 
                 >
                     <CloudUpload /> Сохранить в базу 
                 </Button>
                 <Button
-                    variant="primary" // Цвет кнопки "primary".
+                    variant="primary" 
                     type="submit"
-                    className="d-flex align-items-center gap-1" // Стили кнопки.
-                    disabled={array.length === 0} // Кнопка деактивирована,  если  массив  пуст. 
+                    className="d-flex align-items-center gap-1"
+                    disabled={array.length === 0}  
                 >
                     <SortNumericDown /> Отсортировать 
                 </Button>
@@ -159,4 +159,4 @@ function KeyboardArrayForm({ // Функция, которая рендерит 
     );
 }
 
-export default KeyboardArrayForm; // Экспортируем компонент KeyboardArrayForm по умолчанию.
+export default KeyboardArrayForm; 

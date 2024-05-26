@@ -20,17 +20,17 @@ function ExtractTextArea({ // Функция, которая рендерит к
     rows, // Количество видимых строк текста.
     ...props // Остальные свойства, которые будут переданы компоненту Form.Control.
 }) {
-    return ( // Возвращает JSX-разметку компонента.
+    return ( 
         <Form.Group controlId={controlId} className="mb-3"> 
             <Form.Label> 
                 <strong>{label}</strong> 
             </Form.Label>
-            <Form.Control // Используем компонент Form.Control из react-bootstrap для создания текстового поля.
-                as="textarea" // Указываем, что компонент Form.Control должен рендерить textarea. 
-                value={value} // Устанавливаем текущее значение текстового поля.
-                onChange={onChange} // Устанавливаем обработчик изменения значения.
-                rows={rows} // Устанавливаем количество видимых строк текста.
-                {...props} // Передаем все остальные свойства. 
+            <Form.Control 
+                as="textarea"  
+                value={value} 
+                onChange={onChange} 
+                rows={rows} 
+                {...props} 
             />
         </Form.Group>
     );

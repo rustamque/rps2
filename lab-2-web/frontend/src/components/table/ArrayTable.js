@@ -14,8 +14,8 @@ import React from "react"; // Импорт React для работы с комп
  * @param {string} [props.size] - Вариант размера для компонента Table (например, 'sm' для маленького).
  * @returns {JSX.Element} Рендеринг компонента ArrayTable.
  */
-function ArrayTable({ arrays, onEdit, size }) { // Функция, которая рендерит компонент ArrayTable.
-    return ( // Возвращает JSX-разметку компонента.
+function ArrayTable({ arrays, onEdit, size }) { 
+    return ( 
         <Table striped bordered hover size={size}> 
             <thead>  
                 <tr>
@@ -27,36 +27,36 @@ function ArrayTable({ arrays, onEdit, size }) { // Функция, котора�
                 </tr>
             </thead>
             <tbody> // Тело таблицы. 
-                {arrays.map((array) => ( // Итерируем по массиву массивов. 
+                {arrays.map((array) => ( 
                     <React.Fragment key={array.id}> 
                         <tr
-                            onClick={() => { // Устанавливаем обработчик события клика по строке.
-                                onEdit(array); // Вызываем функцию onEdit,  передавая  данные  массива.
+                            onClick={() => { 
+                                onEdit(array); 
                             }}
-                            style={{ cursor: "pointer" }} //  Устанавливаем  курсор  в  виде  указателя  для  строки.
+                            style={{ cursor: "pointer" }} 
                         >
                             <td>{array.id}</td> 
                             <td>
                                 {array.data.length > 30
-                                    ? array.data.slice(0, 30).join(", ") + "..." // Отображаем первые 30 элементов массива,  если  массив  длиннее,  и  добавляем  "..."
+                                    ? array.data.slice(0, 30).join(", ") + "..." 
                                     : array.data.join(", ")} 
                             </td>
                             <td>
-                                {formatDistanceToNow(new Date(array.update_date), { // Форматируем дату последнего обновления с помощью  formatDistanceToNow  из  date-fns.
-                                    addSuffix: true, // Добавляем  суффикс  (например,  "назад",  "вчера").
-                                    locale: ruLocale, //  Используем  русский  локальный  файл.
+                                {formatDistanceToNow(new Date(array.update_date), { 
+                                    addSuffix: true, 
+                                    locale: ruLocale, 
                                 })}
                             </td>
                             <td>
-                                {new Date(array.creation_date).toLocaleString("ru-RU", { //  Форматируем  дату  создания  с  помощью  toLocaleString  в  русском  формате.
-                                    hour12: false, //  Используем  24-часовой  формат  времени. 
+                                {new Date(array.creation_date).toLocaleString("ru-RU", { 
+                                    hour12: false, 
                                 })}
                             </td>
                             <td className="text-center"> 
                                 {array.is_sorted ? (
-                                    <Check2 color="green" size={20} /> //  Отображаем  зеленую  галочку,  если  массив  отсортирован. 
+                                    <Check2 color="green" size={20} /> 
                                 ) : (
-                                    <X color="red" size={20} /> //  Отображаем  красный  крестик,  если  массив  не  отсортирован. 
+                                    <X color="red" size={20} />  
                                 )}
                             </td>
                         </tr>
