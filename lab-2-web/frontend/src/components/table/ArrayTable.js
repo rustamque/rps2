@@ -26,7 +26,7 @@ function ArrayTable({ arrays, onEdit, size }) {
                     <th>Отсортирован</th>
                 </tr>
             </thead>
-            <tbody> // Тело таблицы. 
+            <tbody>
                 {arrays.map((array) => ( 
                     <React.Fragment key={array.id}> 
                         <tr
