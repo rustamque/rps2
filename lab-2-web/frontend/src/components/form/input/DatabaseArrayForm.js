@@ -1,105 +1,105 @@
-import { CloudUpload, SortNumericDown } from "react-bootstrap-icons";
-import ExtractButtonGroup from "../../extract/ExtractButtonGroup";
-import React, { useCallback, useState, useEffect } from "react";
-import ArrayPagination from "../../pagination/ArrayPagination";
-import ExtractTextArea from "../../extract/ExtractInputField";
-import ArrayTable from "../../table/ArrayTable";
-import { Button } from "react-bootstrap";
-import { fetchData } from "../../../api/api";
+import { CloudUpload, SortNumericDown } from "react-bootstrap-icons"; // Импортируем иконки из библиотеки react-bootstrap-icons.
+import ExtractButtonGroup from "../../extract/ExtractButtonGroup"; // Импорт компонента группы кнопок.
+import React, { useCallback, useState, useEffect } from "react"; // Импорт необходимых хуков из React.
+import ArrayPagination from "../../pagination/ArrayPagination"; // Импорт компонента пагинации для массивов.
+import ExtractTextArea from "../../extract/ExtractInputField"; // Импорт компонента поля ввода.
+import ArrayTable from "../../table/ArrayTable"; // Импорт компонента таблицы для массивов.
+import { Button } from "react-bootstrap"; // Импорт компонента Button из библиотеки react-bootstrap.
+import { fetchData } from "../../../api/api"; // Импорт функции для извлечения данных из API.
 
 /**
- * DatabaseArrayForm component allows users to interact with arrays from a database.
- * It includes features like selecting arrays, editing, saving to the database, and sorting.
+ * Компонент DatabaseArrayForm позволяет пользователям взаимодействовать с массивами из базы данных.
+ * Он включает в себя такие функции, как выбор массивов, редактирование, сохранение в базу данных и сортировка.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {string} props.apiUrl - The URL for fetching data from the API.
- * @param {Array|Object} props.array - The array or object representing the data.
- * @param {Function} props.setArray - A function to set the array state.
- * @param {string} props.error - Error message to display.
- * @param {Function} props.setError - A function to set the error state.
- * @param {string} props.info - Information message to display.
- * @param {Function} props.setIsSaving - A function to set the saving state.
- * @returns {JSX.Element} The rendered DatabaseArrayForm component.
+ * @param {Object} props - Свойства компонента.
+ * @param {string} props.apiUrl - URL для извлечения данных из API.
+ * @param {Array|Object} props.array - Массив или объект, представляющий данные.
+ * @param {Function} props.setArray - Функция для установки состояния массива.
+ * @param {string} props.error - Сообщение об ошибке для отображения.
+ * @param {Function} props.setError - Функция для установки состояния ошибки.
+ * @param {string} props.info - Информационное сообщение для отображения.
+ * @param {Function} props.setIsSaving - Функция для установки состояния сохранения.
+ * @returns {JSX.Element} Рендеринг компонента DatabaseArrayForm.
  */
-function DatabaseArrayForm({
-    apiUrl,
-    array,
-    setArray,
-    error,
-    setError,
-    info,
-    setIsSaving,
+function DatabaseArrayForm({ // Функция, которая рендерит компонент DatabaseArrayForm.
+    apiUrl, // URL API.
+    array, // Массив или объект, представляющий данные.
+    setArray, // Функция для установки состояния массива.
+    error, // Сообщение об ошибке.
+    setError, // Функция для установки состояния ошибки.
+    info, // Информационное сообщение.
+    setIsSaving, // Функция для установки состояния сохранения.
 }) {
-    const [page, setPage] = useState(1);
-    const [numArrays, setNumArrays] = useState(0);
-    const [availableArrays, setAvailableArrays] = useState([]);
+    const [page, setPage] = useState(1); // Состояние для текущей страницы пагинации.
+    const [numArrays, setNumArrays] = useState(0); // Состояние для количества массивов.
+    const [availableArrays, setAvailableArrays] = useState([]); // Состояние для списка доступных массивов.
 
     /**
-     * Fetches data from the API based on the provided parameters and updates the component state.
+     * Извлекает данные из API на основе предоставленных параметров и обновляет состояние компонента.
      *
      * @function
-     * @param {string} apiUrl - The URL for fetching data from the API.
-     * @param {number} page - The current page for pagination.
-     * @param {Function} setAvailableArrays - A function to set the available arrays state.
-     * @param {Function} setNumArrays - A function to set the number of arrays state.
-     * @param {Function} setError - A function to set the error state.
+     * @param {string} apiUrl - URL для извлечения данных из API.
+     * @param {number} page - Текущая страница для пагинации.
+     * @param {Function} setAvailableArrays - Функция для установки состояния доступных массивов.
+     * @param {Function} setNumArrays - Функция для установки состояния количества массивов.
+     * @param {Function} setError - Функция для установки состояния ошибки.
      * @returns {void}
      */
-    const fetchDataCallback = useCallback(() => {
-        fetchData({
-            apiUrl,
-            searchId: null,
-            page,
-            setArrays: setAvailableArrays,
-            setNumArrays,
-            setError,
+    const fetchDataCallback = useCallback(() => { // Замыкание для извлечения данных из API, которое запоминает значения параметров.
+        fetchData({ // Вызываем функцию fetchData для получения данных.
+            apiUrl, // URL API.
+            searchId: null, // ID для поиска не используется.
+            page, // Текущая страница для пагинации.
+            setArrays: setAvailableArrays, // Функция для установки состояния доступных массивов.
+            setNumArrays, // Функция для установки состояния количества массивов.
+            setError, // Функция для установки состояния ошибки.
         });
-    }, [apiUrl, page, setAvailableArrays, setNumArrays, setError]);
+    }, [apiUrl, page, setAvailableArrays, setNumArrays, setError]); // Зависимости useCallback: хук перерендерится, только если эти значения изменятся.
 
     /**
-     * useEffect hook that fetches data from the API when the component mounts or when the 'page' state changes.
-     * It updates the available arrays and the number of arrays in the state, and handles potential errors.
+     * Хук useEffect, который извлекает данные из API при монтировании компонента или изменении состояния "page".
+     * Обновляет доступные массивы и количество массивов в состоянии и обрабатывает потенциальные ошибки.
      *
      * @effect
-     * @param {Function} fetchDataCallback - Callback function for fetching data from the API.
+     * @param {Function} fetchDataCallback - Функция обратного вызова для извлечения данных из API.
      * @returns {void}
      */
-    useEffect(() => {
-        fetchDataCallback();
-    }, [fetchDataCallback]);
+    useEffect(() => { // Хук useEffect для извлечения данных при монтировании и изменении состояния страницы.
+        fetchDataCallback(); // Вызываем функцию fetchDataCallback для получения данных.
+    }, [fetchDataCallback]); // Зависимости useEffect: хук перерендерится, только если fetchDataCallback изменится.
 
     /**
-     * Handles the selection of an array from the database and updates the component state.
+     * Обрабатывает выбор массива из базы данных и обновляет состояние компонента.
      *
      * @function
-     * @param {Object} array - The selected array object.
+     * @param {Object} array - Выбранный объект массива.
      * @returns {void}
      */
-    const handleArraySelect = (array) => {
-        setArray(array.data);
+    const handleArraySelect = (array) => { // Функция, которая обрабатывает выбор массива из базы данных.
+        setArray(array.data); // Устанавливаем состояние массива, используя данные выбранного массива.
     };
 
     /**
-     * Handles the input change event and updates the component state with numeric values.
+     * Обрабатывает событие изменения ввода и обновляет состояние компонента числовыми значениями.
      *
      * @function
-     * @param {Object} event - The input change event.
+     * @param {Object} event - Событие изменения ввода.
      * @returns {void}
      */
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
+    const handleInputChange = (event) => { // Функция, которая обрабатывает изменение ввода в текстовом поле.
+        const { name, value } = event.target; // Извлекаем имя и значение поля ввода.
 
-        const numericValues = value.split(" ").map((val) => {
-            if (val === "" || val === "-") return val;
-            if (/^-?\d+$/.test(val)) return parseInt(val, 10);
-            return 0;
+        const numericValues = value.split(" ").map((val) => { // Разделяем строку ввода на отдельные значения.
+            if (val === "" || val === "-") return val; // Проверяем, является ли значение пустым или минусом, и оставляем его без изменений.
+            if (/^-?\d+$/.test(val)) return parseInt(val, 10); // Проверяем, является ли значение числом, и преобразуем его в целое число.
+            return 0; // Если значение не пустое и не минус, но не является числом,  возвращаем 0.
         });
 
-        if (Array.isArray(array)) {
-            setArray(numericValues);
-        } else {
-            setArray({ ...array, [name]: numericValues });
+        if (Array.isArray(array)) { // Проверяем, является ли массив массивом (для редактирования существующего).
+            setArray(numericValues); // Обновляем состояние массива.
+        } else { // Иначе,  это объект (для добавления нового).
+            setArray({ ...array, [name]: numericValues }); // Обновляем состояние объекта, добавляя новые данные.
         }
     };
 
@@ -116,18 +116,18 @@ function DatabaseArrayForm({
                 .
             </p>
 
-            {availableArrays.length > 0 && (
+            {availableArrays.length > 0 && ( // Отображаем таблицу и пагинацию, если есть доступные массивы.
                 <>
                     <ArrayTable
-                        arrays={availableArrays}
-                        onEdit={handleArraySelect}
-                        size="sm"
+                        arrays={availableArrays} // Передаем массив доступных массивов в таблицу.
+                        onEdit={handleArraySelect} // Устанавливаем обработчик события выбора массива.
+                        size="sm" // Устанавливаем размер таблицы.
                     />
                     <ArrayPagination
-                        page={page}
-                        setPage={setPage}
-                        numArrays={numArrays}
-                        arraysLength={availableArrays.length}
+                        page={page} // Текущая страница пагинации.
+                        setPage={setPage} // Функция для обновления состояния страницы.
+                        numArrays={numArrays} // Общее количество массивов.
+                        arraysLength={availableArrays.length} // Количество массивов на текущей странице.
                     />
                 </>
             )}
@@ -136,34 +136,34 @@ function DatabaseArrayForm({
                 controlId="database-array"
                 name="data"
                 label="Выбранный массив:"
-                value={array.join(" ")}
-                rows={4}
-                onChange={handleInputChange}
-                disabled={array.length === 0}
+                value={array.join(" ")} // Отображаем массив в виде строки, разделяя значения пробелами.
+                rows={4} // Количество видимых строк текстового поля.
+                onChange={handleInputChange} // Обработчик изменения значения текстового поля.
+                disabled={array.length === 0} // Деактивируем текстовое поле, если массив пуст.
             />
-            {error && <p className="text-danger text-end">{error}</p>}
-            {info && <p className="text-primary text-end">{info}</p>}
-            <ExtractButtonGroup>
+            {error && <p className="text-danger text-end">{error}</p>} 
+            {info && <p className="text-primary text-end">{info}</p>} 
+            <ExtractButtonGroup> 
                 <Button
-                    variant="info"
-                    type="submit"
-                    className="d-flex align-items-center gap-1"
-                    onClick={() => setIsSaving(true)}
-                    disabled={array.length <= 1}
+                    variant="info" // Устанавливаем цвет кнопки.
+                    type="submit" // Тип кнопки (по умолчанию submit).
+                    className="d-flex align-items-center gap-1" // Устанавливаем стили кнопки.
+                    onClick={() => setIsSaving(true)} // Обработчик события клика: устанавливаем состояние "Сохранение".
+                    disabled={array.length <= 1} // Деактивируем кнопку, если массив пуст или содержит только один элемент.
                 >
-                    <CloudUpload /> Сохранить в базу
+                    <CloudUpload /> Сохранить в базу 
                 </Button>
                 <Button
-                    variant="primary"
-                    type="submit"
-                    className="d-flex align-items-center gap-1"
-                    disabled={array.length <= 1}
+                    variant="primary" // Устанавливаем цвет кнопки.
+                    type="submit" // Тип кнопки (по умолчанию submit).
+                    className="d-flex align-items-center gap-1" // Устанавливаем стили кнопки.
+                    disabled={array.length <= 1} // Деактивируем кнопку, если массив пуст или содержит только один элемент.
                 >
-                    <SortNumericDown /> Отсортировать
+                    <SortNumericDown /> Отсортировать 
                 </Button>
             </ExtractButtonGroup>
         </>
     );
 }
 
-export default DatabaseArrayForm;
+export default DatabaseArrayForm; // Экспортируем компонент DatabaseArrayForm по умолчанию.

@@ -1,89 +1,85 @@
-import {
-    ArrowRepeat,
-    SortNumericDown,
-    CloudUpload,
-} from "react-bootstrap-icons";
-import ExtractButtonGroup from "../../extract/ExtractButtonGroup";
-import ExtractInputField from "../../extract/ExtractInputField";
-import ExtractTextArea from "../../extract/ExtractTextArea";
-import { Button } from "react-bootstrap";
-import React from "react";
+import { SortNumericDown, CloudUpload, ArrowRepeat } from "react-bootstrap-icons"; // Импортируем иконки "Сортировка", "Облако загрузки" и "Перезагрузка" из библиотеки react-bootstrap-icons.
+import ExtractButtonGroup from "../../extract/ExtractButtonGroup"; // Импорт компонента "Группа кнопок" (ExtractButtonGroup).
+import ExtractInputField from "../../extract/ExtractInputField"; // Импорт компонента "Поле ввода" (ExtractInputField).
+import ExtractTextArea from "../../extract/ExtractTextArea"; // Импорт компонента "Текстовое поле" (ExtractTextArea).
+import { Button } from "react-bootstrap"; // Импорт компонента "Кнопка" из библиотеки react-bootstrap.
+import React from "react"; // Импорт React для работы с компонентами.
 
 /**
- * RandomArrayForm component allows users to generate a random array of numbers within a specified range.
- * It provides input fields for the number of elements, minimum, and maximum values,
- * and options to generate, save to the database, and sort the array.
+ * Компонент RandomArrayForm позволяет пользователям генерировать случайный массив чисел в заданном диапазоне.
+ * Он предоставляет поля ввода для количества элементов, минимального и максимального значений,
+ * а также опции для генерации, сохранения в базу данных и сортировки массива.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {Array} props.array - The generated random array of numbers.
- * @param {Function} props.setArray - A function to set the array state.
- * @param {number} props.numElements - The number of elements to generate in the array.
- * @param {Function} props.setNumElements - A function to set the number of elements state.
- * @param {string} props.minValue - The minimum value for generating random numbers.
- * @param {Function} props.setMinValue - A function to set the minimum value state.
- * @param {string} props.maxValue - The maximum value for generating random numbers.
- * @param {Function} props.setMaxValue - A function to set the maximum value state.
- * @param {string} props.error - Error message to display.
- * @param {Function} props.setError - A function to set the error state.
- * @param {string} props.info - Information message to display.
- * @param {Function} props.setIsSaving - A function to set the saving state.
- * @returns {JSX.Element} The rendered RandomArrayForm component.
+ * @param {Object} props - Свойства компонента.
+ * @param {Array} props.array - Сгенерированный случайный массив чисел.
+ * @param {Function} props.setArray - Функция для установки состояния массива.
+ * @param {number} props.numElements - Количество элементов для генерации в массиве.
+ * @param {Function} props.setNumElements - Функция для установки состояния количества элементов.
+ * @param {string} props.minValue - Минимальное значение для генерации случайных чисел.
+ * @param {Function} props.setMinValue - Функция для установки состояния минимального значения.
+ * @param {string} props.maxValue - Максимальное значение для генерации случайных чисел.
+ * @param {Function} props.setMaxValue - Функция для установки состояния максимального значения.
+ * @param {string} props.error - Сообщение об ошибке для отображения.
+ * @param {Function} props.setError - Функция для установки состояния ошибки.
+ * @param {string} props.info - Информационное сообщение для отображения.
+ * @param {Function} props.setIsSaving - Функция для установки состояния сохранения.
+ * @returns {JSX.Element} Рендеринг компонента RandomArrayForm.
  */
-function RandomArrayForm({
-    array,
-    setArray,
-    numElements,
-    setNumElements,
-    minValue,
-    setMinValue,
-    maxValue,
-    setMaxValue,
-    error,
-    setError,
-    info,
-    setIsSaving,
+function RandomArrayForm({ // Функция, которая рендерит компонент RandomArrayForm.
+    array, // Сгенерированный случайный массив чисел.
+    setArray, // Функция для установки состояния массива.
+    numElements, // Количество элементов для генерации в массиве.
+    setNumElements, // Функция для установки состояния количества элементов.
+    minValue, // Минимальное значение для генерации случайных чисел.
+    setMinValue, // Функция для установки состояния минимального значения.
+    maxValue, // Максимальное значение для генерации случайных чисел.
+    setMaxValue, // Функция для установки состояния максимального значения.
+    error, // Сообщение об ошибке.
+    setError, // Функция для установки состояния ошибки.
+    info, // Информационное сообщение.
+    setIsSaving, // Функция для установки состояния сохранения.
 }) {
     /**
-     * Handles the generation of a random array based on user input and updates the component state.
+     * Обрабатывает генерацию случайного массива на основе ввода пользователя и обновляет состояние компонента.
      *
      * @function
      * @returns {void}
      */
-    const handleAddRandomArray = () => {
-        const minVal = parseInt(minValue);
-        const maxVal = parseInt(maxValue);
-        const numElem = parseInt(numElements);
+    const handleAddRandomArray = () => { // Функция, которая обрабатывает генерацию случайного массива.
+        const minVal = parseInt(minValue); // Преобразуем минимальное значение в целое число.
+        const maxVal = parseInt(maxValue); // Преобразуем максимальное значение в целое число.
+        const numElem = parseInt(numElements); // Преобразуем количество элементов в целое число.
 
-        if (isNaN(minVal) || isNaN(numElem)) {
+        if (isNaN(minVal) || isNaN(numElem)) { // Проверяем, являются ли минимальное и максимальное значения числами.
             setError("Минимальное и максимальное значения должны быть числами.");
-            return;
+            return; // Если не являются числами, устанавливаем сообщение об ошибке и выходим из функции.
         }
 
-        if (numElem <= 0) {
+        if (numElem <= 0) { // Проверяем, что количество элементов больше 0.
             setError("Количество элементов должно быть больше 0.");
-            return;
+            return; // Если количество элементов меньше или равно 0, устанавливаем сообщение об ошибке и выходим из функции.
         }
 
-        if (numElem >= 3000000) {
+        if (numElem >= 3000000) { // Проверяем, что количество элементов не превышает 3 миллиона.
             setError("Генерация ограничена 3 миллионами элементов.");
-            return;
+            return; // Если количество элементов больше или равно 3 миллионам, устанавливаем сообщение об ошибке и выходим из функции.
         }
 
-        if (minVal >= maxVal) {
+        if (minVal >= maxVal) { // Проверяем, что максимальное значение больше минимального.
             setError("Максимальное значение должно быть больше минимального.");
-            return;
+            return; // Если максимальное значение меньше или равно минимальному, устанавливаем сообщение об ошибке и выходим из функции.
         }
 
-        const randomArray = Array.from({ length: numElem }, () => {
-            const randomElement = Math.floor(
+        const randomArray = Array.from({ length: numElem }, () => { // Генерируем случайный массив.
+            const randomElement = Math.floor( // Генерируем случайный элемент в диапазоне от минимального до максимального.
                 Math.random() * (maxVal - minVal + 1) + minVal,
             );
-            return randomElement.toString();
+            return randomElement.toString(); // Преобразуем случайный элемент в строку.
         });
 
-        setArray(randomArray);
-        setError(null);
+        setArray(randomArray); // Устанавливаем состояние массива.
+        setError(null); // Сбрасываем сообщение об ошибке.
     };
 
     return (
@@ -101,22 +97,22 @@ function RandomArrayForm({
                 label="Случайный массив:"
                 value={array.join(", ")}
                 rows={4}
-                disabled
+                disabled // Текстовое поле для отображения сгенерированного массива, не редактируется.
             />
             <ExtractInputField
                 controlId="num-elements"
                 label="Количество элементов:"
                 value={numElements}
-                onChange={(e) => setNumElements(e.target.value)}
+                onChange={(e) => setNumElements(e.target.value)} // Обработчик изменения значения поля ввода.
                 type="number"
                 step="0"
-                min="1"
+                min="1" // Устанавливаем минимальное значение для поля ввода.
             />
             <ExtractInputField
                 controlId="min-value"
                 label="Минимальное значение:"
                 value={minValue}
-                onChange={(e) => setMinValue(e.target.value)}
+                onChange={(e) => setMinValue(e.target.value)} // Обработчик изменения значения поля ввода.
                 type="number"
                 step="0"
             />
@@ -124,40 +120,40 @@ function RandomArrayForm({
                 controlId="max-value"
                 label="Максимальное значение:"
                 value={maxValue}
-                onChange={(e) => setMaxValue(e.target.value)}
+                onChange={(e) => setMaxValue(e.target.value)} // Обработчик изменения значения поля ввода.
                 type="number"
                 step="0"
             />
-            {error && <p className="text-danger text-end">{error}</p>}
-            {info && <p className="text-primary text-end">{info}</p>}
-            <ExtractButtonGroup>
+            {error && <p className="text-danger text-end">{error}</p>} 
+            {info && <p className="text-primary text-end">{info}</p>} 
+            <ExtractButtonGroup> 
                 <Button
-                    variant="secondary"
-                    onClick={handleAddRandomArray}
-                    className="d-flex align-items-center gap-1"
+                    variant="secondary" // Цвет кнопки "вторичный".
+                    onClick={handleAddRandomArray} // Обработчик события клика: генерирует случайный массив.
+                    className="d-flex align-items-center gap-1" // Стили кнопки.
                 >
-                    <ArrowRepeat /> Сгенерировать
+                    <ArrowRepeat /> Сгенерировать 
                 </Button>
                 <Button
-                    variant="info"
-                    type="submit"
-                    className="d-flex align-items-center gap-1"
-                    onClick={() => setIsSaving(true)}
-                    disabled={array.length === 0}
+                    variant="info" // Цвет кнопки "info".
+                    type="submit" 
+                    className="d-flex align-items-center gap-1" // Стили кнопки.
+                    onClick={() => setIsSaving(true)} // Устанавливаем состояние "Сохранение" при клике на кнопку.
+                    disabled={array.length === 0} // Деактивируем кнопку,  если  массив пуст.
                 >
-                    <CloudUpload /> Сохранить в базу
+                    <CloudUpload /> Сохранить в базу 
                 </Button>
                 <Button
-                    variant="primary"
+                    variant="primary" // Цвет кнопки "первичный".
                     type="submit"
-                    className="d-flex align-items-center gap-1"
-                    disabled={array.length === 0}
+                    className="d-flex align-items-center gap-1" // Стили кнопки.
+                    disabled={array.length === 0} // Кнопка деактивирована,  если  массив  пуст. 
                 >
-                    <SortNumericDown /> Отсортировать
+                    <SortNumericDown /> Отсортировать 
                 </Button>
             </ExtractButtonGroup>
         </>
     );
 }
 
-export default RandomArrayForm;
+export default RandomArrayForm; // Экспортируем компонент RandomArrayForm по умолчанию.

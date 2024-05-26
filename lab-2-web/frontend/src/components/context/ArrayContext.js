@@ -1,42 +1,42 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react"; // Импортируем необходимые хуки и функции из React: createContext, useContext, useState.
 
 /**
- * ArrayContext is a context object created by React.createContext. It provides a way
- * to share the state related to sorted arrays and execution time throughout the component tree.
+ * ArrayContext - это контекст, созданный с помощью React.createContext. 
+ * Он предоставляет способ  обмена  состоянием, связанным с отсортированными массивами и временем выполнения, по всему дереву компонентов.
  *
  * @context
  */
-const ArrayContext = createContext();
+const ArrayContext = createContext(); // Создаем контекст для управления состоянием отсортированных массивов.
 
 /**
- * useArrayContext is a custom hook that returns the current context value of the ArrayContext.
+ * useArrayContext - это пользовательский хук, который возвращает текущее значение контекста ArrayContext.
  *
  * @function
  * @name useArrayContext
- * @returns {Object} The current context value of the ArrayContext.
+ * @returns {Object} Текущее значение контекста ArrayContext.
  */
-export function useArrayContext() {
-    return useContext(ArrayContext);
+export function useArrayContext() { // Функция, которая возвращает текущее значение контекста ArrayContext.
+    return useContext(ArrayContext); // Используем хук useContext для получения текущего значения контекста.
 }
 
 /**
- * ArrayProvider is a context provider that wraps components, providing a context for managing sorted arrays
- * and execution time related to the Bucket Sort algorithm.
+ * ArrayProvider - это компонент-провайдер контекста, который оборачивает компоненты, 
+ * предоставляя контекст для управления отсортированными массивами и временем выполнения, связанным с алгоритмом блочной сортировки.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {React.ReactNode} props.children - The child elements to be wrapped by the context provider.
- * @returns {JSX.Element} The rendered ArrayProvider context provider.
+ * @param {Object} props - Свойства компонента.
+ * @param {React.ReactNode} props.children - Дочерние элементы, которые будут обернуты провайдером контекста.
+ * @returns {JSX.Element} Рендеринг компонента ArrayProvider.
  */
-export function ArrayProvider({ children }) {
-    const [sortedArray, setSortedArray] = useState([]);
-    const [executionTime, setExecutionTime] = useState(null);
+export function ArrayProvider({ children }) { // Функция, которая рендерит компонент ArrayProvider.
+    const [sortedArray, setSortedArray] = useState([]); // Инициализируем состояние отсортированного массива как пустой массив.
+    const [executionTime, setExecutionTime] = useState(null); // Инициализируем состояние времени выполнения как null.
 
-    return (
-        <ArrayContext.Provider
-            value={{ sortedArray, setSortedArray, executionTime, setExecutionTime }}
+    return ( // Возвращаем JSX-разметку компонента ArrayProvider.
+        <ArrayContext.Provider 
+            value={{ sortedArray, setSortedArray, executionTime, setExecutionTime }} // Устанавливаем значение контекста. 
         >
-            {children}
+            {children} 
         </ArrayContext.Provider>
     );
 }

@@ -1,27 +1,27 @@
-import { Form } from "react-bootstrap";
-import React from "react";
+import { Form } from "react-bootstrap"; // Импортируем компонент Form из библиотеки react-bootstrap.
+import React from "react"; // Импортируем React для работы с компонентами.
 
 /**
- * SearchForm component provides a form input for users to search arrays based on their ID.
+ * Компонент SearchForm предоставляет поле ввода для поиска массивов по их ID.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {string} props.searchId - The current search ID value.
- * @param {Function} props.onSearchChange - A function to handle changes in the search ID.
- * @returns {JSX.Element} The rendered SearchForm component.
+ * @param {Object} props - Свойства компонента.
+ * @param {string} props.searchId - Текущее значение ID поиска.
+ * @param {Function} props.onSearchChange - Функция для обработки изменений в ID поиска.
+ * @returns {JSX.Element} Рендеринг компонента SearchForm.
  */
-function SearchForm({ searchId, onSearchChange }) {
-    return (
-        <Form.Group className="mb-3">
-            <Form.Control
-                id="search-form"
-                type="text"
-                placeholder="Поиск по ID массива"
-                value={searchId || ""}
-                onChange={(e) => onSearchChange(e.target.value || null)}
+function SearchForm({ searchId, onSearchChange }) { // Функция, которая рендерит компонент SearchForm.
+    return ( // Возвращает JSX-разметку компонента.
+        <Form.Group className="mb-3"> 
+            <Form.Control // Используем компонент Form.Control из react-bootstrap для создания поля ввода.
+                id="search-form" // Устанавливаем ID поля ввода.
+                type="text" // Устанавливаем тип поля ввода (текст).
+                placeholder="Поиск по ID массива" // Устанавливаем текст-заполнитель для поля ввода.
+                value={searchId || ""} // Устанавливаем значение поля ввода. 
+                onChange={(e) => onSearchChange(e.target.value || null)} // Устанавливаем обработчик изменения значения поля ввода.
             />
         </Form.Group>
     );
 }
 
-export default SearchForm;
+export default SearchForm; // Экспортируем компонент SearchForm по умолчанию.

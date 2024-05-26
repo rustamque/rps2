@@ -1,39 +1,39 @@
-import { Form } from "react-bootstrap";
+import { Form } from "react-bootstrap"; // Импортируем компонент Form из библиотеки react-bootstrap.
 
 /**
- * Functional component representing a textarea within a form.
+ * Функциональный компонент, представляющий текстовое поле (textarea) внутри формы.
  *
  * @component
- * @param {Object} props - Additional properties for configuring the textarea.
- * @param {string} props.controlId - The unique identifier for the textarea.
- * @param {string} props.label - The label for the textarea.
- * @param {string} props.value - The current value of the textarea.
- * @param {Function} props.onChange - The function to be called when the textarea value changes.
- * @param {number} props.rows - The number of visible text lines for the textarea.
- * @returns {JSX.Element} The rendered React element for the textarea.
+ * @param {Object} props - Дополнительные свойства для конфигурации текстового поля.
+ * @param {string} props.controlId - Уникальный идентификатор текстового поля.
+ * @param {string} props.label - Метка для текстового поля.
+ * @param {string} props.value - Текущее значение текстового поля.
+ * @param {Function} props.onChange - Функция, вызываемая при изменении значения текстового поля.
+ * @param {number} props.rows - Количество видимых строк текста в текстовом поле.
+ * @returns {JSX.Element} Рендеринг элемента React для текстового поля.
  */
-function ExtractTextArea({
-    controlId,
-    label,
-    value,
-    onChange,
-    rows,
-    ...props
+function ExtractTextArea({ // Функция, которая рендерит компонент текстового поля.
+    controlId, // Уникальный идентификатор текстового поля.
+    label, // Метка для текстового поля.
+    value, // Текущее значение текстового поля.
+    onChange, // Обработчик изменения значения текстового поля.
+    rows, // Количество видимых строк текста.
+    ...props // Остальные свойства, которые будут переданы компоненту Form.Control.
 }) {
-    return (
-        <Form.Group controlId={controlId} className="mb-3">
-            <Form.Label>
-                <strong>{label}</strong>
+    return ( // Возвращает JSX-разметку компонента.
+        <Form.Group controlId={controlId} className="mb-3"> 
+            <Form.Label> 
+                <strong>{label}</strong> 
             </Form.Label>
-            <Form.Control
-                as="textarea"
-                value={value}
-                onChange={onChange}
-                rows={rows}
-                {...props}
+            <Form.Control // Используем компонент Form.Control из react-bootstrap для создания текстового поля.
+                as="textarea" // Указываем, что компонент Form.Control должен рендерить textarea. 
+                value={value} // Устанавливаем текущее значение текстового поля.
+                onChange={onChange} // Устанавливаем обработчик изменения значения.
+                rows={rows} // Устанавливаем количество видимых строк текста.
+                {...props} // Передаем все остальные свойства. 
             />
         </Form.Group>
     );
 }
 
-export default ExtractTextArea;
+export default ExtractTextArea; // Экспортируем компонент ExtractTextArea по умолчанию.

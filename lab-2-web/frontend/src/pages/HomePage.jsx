@@ -7,14 +7,15 @@ import { Container } from "react-bootstrap";
 import React from "react";
 
 /**
- * HomePage component represents the main page of the application. It includes the main navigation bar,
- * a container with information about Bucket Sort, and forms for creating and sorting arrays.
+ * Компонент HomePage представляет главную страницу приложения. Он включает основную навигационную панель,
+ * контейнер с информацией о блочной сортировке, и формы для создания и сортировки массивов.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {string} props.apiUrl - The API URL for interacting with arrays.
- * @returns {JSX.Element} The rendered HomePage component.
+ * @param {Object} props - Свойства компонента.
+ * @param {string} props.apiUrl - URL API для взаимодействия с массивами.
+ * @returns {JSX.Element} Отрисованный компонент HomePage.
  */
+
 function HomePage({ apiUrl }) {
     return (
         <>

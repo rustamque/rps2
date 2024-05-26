@@ -1,23 +1,23 @@
-import { Check2, X } from "react-bootstrap-icons";
-import { formatDistanceToNow } from "date-fns";
-import ruLocale from "date-fns/locale/ru";
-import { Table } from "react-bootstrap";
-import React from "react";
+import { Check2, X } from "react-bootstrap-icons"; // Импортируем иконки "Галочка" и "Крестик" из библиотеки react-bootstrap-icons.
+import { formatDistanceToNow } from "date-fns"; // Импортируем функцию  formatDistanceToNow  из  библиотеки  date-fns  для  форматирования  относительной  даты.
+import ruLocale from "date-fns/locale/ru"; // Импортируем  русский  локальный  файл  для  date-fns. 
+import { Table } from "react-bootstrap"; // Импортируем компонент Table из библиотеки react-bootstrap.
+import React from "react"; // Импорт React для работы с компонентами.
 
 /**
- * ArrayTable component displays an interactive table of arrays, allowing users to click on a row to trigger an edit action.
+ * Компонент ArrayTable отображает интерактивную таблицу массивов, позволяя пользователям кликнуть по строке для запуска действия редактирования.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {Array} props.arrays - The array of objects containing array data.
- * @param {Function} props.onEdit - A function to handle the edit action when a row is clicked.
- * @param {string} [props.size] - The size variant for the Table component (e.g., 'sm' for small).
- * @returns {JSX.Element} The rendered ArrayTable component.
+ * @param {Object} props - Свойства компонента.
+ * @param {Array} props.arrays - Массив объектов, содержащих данные массивов.
+ * @param {Function} props.onEdit - Функция для обработки действия редактирования при клике по строке.
+ * @param {string} [props.size] - Вариант размера для компонента Table (например, 'sm' для маленького).
+ * @returns {JSX.Element} Рендеринг компонента ArrayTable.
  */
-function ArrayTable({ arrays, onEdit, size }) {
-    return (
-        <Table striped bordered hover size={size}>
-            <thead>
+function ArrayTable({ arrays, onEdit, size }) { // Функция, которая рендерит компонент ArrayTable.
+    return ( // Возвращает JSX-разметку компонента.
+        <Table striped bordered hover size={size}> 
+            <thead>  
                 <tr>
                     <th>ID</th>
                     <th>Элементы массива</th>
@@ -26,37 +26,37 @@ function ArrayTable({ arrays, onEdit, size }) {
                     <th>Отсортирован</th>
                 </tr>
             </thead>
-            <tbody>
-                {arrays.map((array) => (
-                    <React.Fragment key={array.id}>
+            <tbody> // Тело таблицы. 
+                {arrays.map((array) => ( // Итерируем по массиву массивов. 
+                    <React.Fragment key={array.id}> 
                         <tr
-                            onClick={() => {
-                                onEdit(array);
+                            onClick={() => { // Устанавливаем обработчик события клика по строке.
+                                onEdit(array); // Вызываем функцию onEdit,  передавая  данные  массива.
                             }}
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer" }} //  Устанавливаем  курсор  в  виде  указателя  для  строки.
                         >
-                            <td>{array.id}</td>
+                            <td>{array.id}</td> 
                             <td>
                                 {array.data.length > 30
-                                    ? array.data.slice(0, 30).join(", ") + "..."
-                                    : array.data.join(", ")}
+                                    ? array.data.slice(0, 30).join(", ") + "..." // Отображаем первые 30 элементов массива,  если  массив  длиннее,  и  добавляем  "..."
+                                    : array.data.join(", ")} 
                             </td>
                             <td>
-                                {formatDistanceToNow(new Date(array.update_date), {
-                                    addSuffix: true,
-                                    locale: ruLocale,
+                                {formatDistanceToNow(new Date(array.update_date), { // Форматируем дату последнего обновления с помощью  formatDistanceToNow  из  date-fns.
+                                    addSuffix: true, // Добавляем  суффикс  (например,  "назад",  "вчера").
+                                    locale: ruLocale, //  Используем  русский  локальный  файл.
                                 })}
                             </td>
                             <td>
-                                {new Date(array.creation_date).toLocaleString("ru-RU", {
-                                    hour12: false,
+                                {new Date(array.creation_date).toLocaleString("ru-RU", { //  Форматируем  дату  создания  с  помощью  toLocaleString  в  русском  формате.
+                                    hour12: false, //  Используем  24-часовой  формат  времени. 
                                 })}
                             </td>
-                            <td className="text-center">
+                            <td className="text-center"> 
                                 {array.is_sorted ? (
-                                    <Check2 color="green" size={20} />
+                                    <Check2 color="green" size={20} /> //  Отображаем  зеленую  галочку,  если  массив  отсортирован. 
                                 ) : (
-                                    <X color="red" size={20} />
+                                    <X color="red" size={20} /> //  Отображаем  красный  крестик,  если  массив  не  отсортирован. 
                                 )}
                             </td>
                         </tr>
@@ -67,4 +67,4 @@ function ArrayTable({ arrays, onEdit, size }) {
     );
 };
 
-export default ArrayTable;
+export default ArrayTable; // Экспортируем компонент ArrayTable по умолчанию.

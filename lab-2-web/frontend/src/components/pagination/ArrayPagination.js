@@ -1,34 +1,34 @@
-import { Pagination } from "react-bootstrap";
-import React from "react";
+import { Pagination } from "react-bootstrap"; // Импорт компонента Pagination из библиотеки react-bootstrap.
+import React from "react"; // Импорт React для работы с компонентами.
 
 /**
- * ArrayPagination component provides pagination controls for navigating through a list of arrays.
+ * Компонент ArrayPagination предоставляет элементы управления пагинацией для навигации по списку массивов.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {number} props.page - The current page number.
- * @param {Function} props.setPage - A function to update the current page.
- * @param {number} props.numArrays - The total number of arrays available.
- * @param {number} props.arraysLength - The length of the current array list.
- * @returns {JSX.Element} The rendered ArrayPagination component.
+ * @param {Object} props - Свойства компонента.
+ * @param {number} props.page - Текущий номер страницы.
+ * @param {Function} props.setPage - Функция для обновления текущей страницы.
+ * @param {number} props.numArrays - Общее количество доступных массивов.
+ * @param {number} props.arraysLength - Длина текущего списка массивов.
+ * @returns {JSX.Element} Рендеринг компонента ArrayPagination.
  */
-function ArrayPagination({ page, setPage, numArrays, arraysLength }) {
-    return (
-        <Pagination className="pagination-center">
-            {numArrays > 50 && (
+function ArrayPagination({ page, setPage, numArrays, arraysLength }) { // Функция, которая рендерит компонент ArrayPagination.
+    return ( // Возвращает JSX-разметку компонента.
+        <Pagination className="pagination-center"> 
+            {numArrays > 50 && ( // Отображаем элементы пагинации, только если общее количество массивов больше 50. 
                 <>
-                    <Pagination.First onClick={() => setPage(1)} disabled={page <= 1} />
+                    <Pagination.First onClick={() => setPage(1)} disabled={page <= 1} /> 
                     <Pagination.Prev
-                        onClick={() => setPage(page - 1)}
+                        onClick={() => setPage(page - 1)} // Кнопка "Предыдущая страница", устанавливаем обработчик события onClick, делаем кнопку неактивной, если текущая страница первая. 
                         disabled={page <= 1}
                     />
-                    <Pagination.Item>{page}</Pagination.Item>
+                    <Pagination.Item>{page}</Pagination.Item> 
                     <Pagination.Next
-                        onClick={() => setPage(page + 1)}
+                        onClick={() => setPage(page + 1)} // Кнопка "Следующая страница", устанавливаем обработчик события onClick, делаем кнопку неактивной, если больше нет страниц.
                         disabled={arraysLength < 50}
                     />
                     <Pagination.Last
-                        onClick={() => setPage(Math.ceil(numArrays / 50))}
+                        onClick={() => setPage(Math.ceil(numArrays / 50))} // Кнопка "Последняя страница", устанавливаем обработчик события onClick, делаем кнопку неактивной, если больше нет страниц.
                         disabled={arraysLength < 50}
                     />
                 </>
@@ -37,4 +37,4 @@ function ArrayPagination({ page, setPage, numArrays, arraysLength }) {
     );
 };
 
-export default ArrayPagination;
+export default ArrayPagination; // Экспортируем компонент ArrayPagination по умолчанию.

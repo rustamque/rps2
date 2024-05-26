@@ -1,66 +1,69 @@
-import { Container, Navbar, Nav } from "react-bootstrap";
-import { Sun, MoonStars } from "react-bootstrap-icons";
-import { useEffect, useState } from "react";
+import { Container, Navbar, Nav } from "react-bootstrap"; // Импорт компонентов Container, Navbar и Nav из библиотеки react-bootstrap.
+import { Sun, MoonStars } from "react-bootstrap-icons"; // Импорт иконок Солнца и Луны из библиотеки react-bootstrap-icons.
+import { useEffect, useState } from "react"; // Импорт хуков useEffect и useState из React. Хуки - это специальные функции в React,
+// которые позволяют добавлять функциональность компонентам без изменения их структуры.
 
-import logo from "../../img/logo.png";
+import logo from "../../img/logo.png"; // Импорт изображения логотипа.
 
 /**
- * Main navigation bar of the application.
+ * Главная панель навигации приложения.
  *
  * @component
- * @returns {JSX.Element} The rendered React element for the main navigation bar.
+ * @returns {JSX.Element} Рендеринг элемента React для главной панели навигации. Процесс преобразования JSX-разметки в HTML,
+ *  который отображается в браузере.
+ *  JSX - это синтаксический сахар для JavaScript, который позволяет писать HTML-подобный код внутри JavaScript.
  */
-function MainNavbar() {
-    const storedTheme = localStorage.getItem("theme");
-    const [theme, setTheme] = useState(storedTheme || "light");
+function MainNavbar() { // Функция, которая рендерит компонент Navbar.
+    const storedTheme = localStorage.getItem("theme"); // Получаем тему из локального хранилища.
+    const [theme, setTheme] = useState(storedTheme || "light"); // Инициализируем состояние темы, используя сохраненную тему из локального хранилища или "light" по умолчанию.
 
     /**
-     * Toggle between light and dark themes and update the state and local storage accordingly.
+     * Переключение между светлой и темной темами и обновление состояния и локального хранилища соответственно.
      *
      * @function
      * @returns {void}
      */
-    const toggleTheme = () => {
-        const newTheme = theme === "light" ? "dark" : "light";
-        setTheme(newTheme);
+    const toggleTheme = () => { // Функция для переключения темы.
+        const newTheme = theme === "light" ? "dark" : "light"; // Определяем новую тему, противоположную текущей.
+        setTheme(newTheme); // Обновляем состояние темы.
     };
 
-    // Effect hook to update the local storage and document theme attribute when the theme changes
+    // Хук useEffect для обновления локального хранилища и атрибута темы документа при изменении темы.
     useEffect(() => {
-        localStorage.setItem("theme", theme);
-        document.documentElement.setAttribute("data-bs-theme", theme);
-    }, [theme]);
+        localStorage.setItem("theme", theme); // Сохраняем текущую тему в локальном хранилище.
+        document.documentElement.setAttribute("data-bs-theme", theme); // Устанавливаем атрибут  "data-bs-theme"  для корневого элемента документа, чтобы применить тему.
+    }, [theme]); // Зависимости useEffect, чтобы хук выполнялся только при изменении состояния `theme`.
 
-    return (
+    return ( // Возвращает JSX-разметку компонента.
         <>
-            <Navbar
-                sticky="top"
-                collapseOnSelect
-                expand="lg"
-                className="bg-body-tertiary"
-            >
-                <Container>
-                    <Navbar.Brand href="/">
+            <Navbar 
+                sticky="top" // Устанавливает Navbar вверху страницы, чтобы он был всегда виден.
+                collapseOnSelect // Сворачивает Navbar при клике на кнопку переключения.
+                expand="lg" // Устанавливает размер Navbar, чтобы он занимал всю ширину экрана.
+                className="bg-body-tertiary" // Добавляем класс для стилизации фона Navbar.
+            > 
+                <Container> 
+                    <Navbar.Brand href="/"> 
                         <img
                             alt=""
-                            src={logo}
-                            width="30"
+                            src={logo} // Путь к изображению логотипа.
+                            width="30" 
                             height="30"
-                            className="d-inline-block align-top"
+                            className="d-inline-block align-top" // Устанавливаем размер и выравнивание логотипа.
                         />{" "}
-                        Bucket Sort
+                        Bucket Sort 
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link href="/">Сортировка</Nav.Link>
-                            <Nav.Link href="arrays">Просмотр и редактирование</Nav.Link>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" /> 
+                    <Navbar.Collapse id="responsive-navbar-nav"> 
+                        <Nav className="me-auto"> 
+                            <Nav.Link href="/">Сортировка</Nav.Link> 
+                            <Nav.Link href="arrays">Просмотр и редактирование</Nav.Link> 
                         </Nav>
-                        <Nav className="justify-content-end">
-                            <Nav.Link onClick={toggleTheme}>
-                                {theme === "light" ? (
+                        <Nav className="justify-content-end"> 
+                            <Nav.Link onClick={toggleTheme}> 
+                                {theme === "light" ? ( // Условный оператор рендеринга: отображаем иконку Солнца, если тема светлая.
                                     <Sun size={25} />
-                                ) : (
+                                ) : ( // Иначе отображаем иконку Луны.
                                     <MoonStars size={25} />
                                 )}
                             </Nav.Link>
@@ -72,4 +75,4 @@ function MainNavbar() {
     );
 }
 
-export default MainNavbar;
+export default MainNavbar; // Экспортируем компонент MainNavbar по умолчанию.

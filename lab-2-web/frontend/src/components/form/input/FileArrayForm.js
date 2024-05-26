@@ -1,114 +1,114 @@
-import { SortNumericDown, CloudUpload } from "react-bootstrap-icons";
-import ExtractButtonGroup from "../../extract/ExtractButtonGroup";
-import ExtractInputField from "../../extract/ExtractInputField";
-import ExtractTextArea from "../../extract/ExtractTextArea";
-import { Button } from "react-bootstrap";
-import React from "react";
+import { SortNumericDown, CloudUpload } from "react-bootstrap-icons"; // Импорт иконок "Сортировка" и "Облако загрузки" из библиотеки react-bootstrap-icons.
+import ExtractButtonGroup from "../../extract/ExtractButtonGroup"; // Импорт компонента "Группа кнопок" (ExtractButtonGroup).
+import ExtractInputField from "../../extract/ExtractInputField"; // Импорт компонента "Поле ввода" (ExtractInputField).
+import ExtractTextArea from "../../extract/ExtractTextArea"; // Импорт компонента "Текстовое поле" (ExtractTextArea).
+import { Button } from "react-bootstrap"; // Импорт компонента "Кнопка" из библиотеки react-bootstrap.
+import React from "react"; // Импорт React для работы с компонентами.
 
 /**
- * FileArrayForm component allows users to upload an array of integers from a text file (.txt).
- * It provides functionality for reading and parsing the file, displaying the loaded array,
- * and performing actions like saving to the database and sorting.
+ * Компонент FileArrayForm позволяет пользователям загрузить массив целых чисел из текстового файла (.txt).
+ * Он предоставляет функциональность для чтения и парсинга файла, отображения загруженного массива,
+ * а также выполнения действий, таких как сохранение в базу данных и сортировка.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {Array} props.array - The array representing the loaded data from the file.
- * @param {Function} props.setArray - A function to set the array state.
- * @param {boolean} props.isFileValid - A boolean indicating whether the loaded file is valid.
- * @param {Function} props.setIsFileValid - A function to set the file validity state.
- * @param {string} props.error - Error message to display.
- * @param {Function} props.setError - A function to set the error state.
- * @param {string} props.info - Information message to display.
- * @param {Function} props.setIsSaving - A function to set the saving state.
- * @returns {JSX.Element} The rendered FileArrayForm component.
+ * @param {Object} props - Свойства компонента.
+ * @param {Array} props.array - Массив, представляющий загруженные данные из файла.
+ * @param {Function} props.setArray - Функция для установки состояния массива.
+ * @param {boolean} props.isFileValid - Флаг, указывающий, является ли загруженный файл допустимым.
+ * @param {Function} props.setIsFileValid - Функция для установки состояния допустимости файла.
+ * @param {string} props.error - Сообщение об ошибке для отображения.
+ * @param {Function} props.setError - Функция для установки состояния ошибки.
+ * @param {string} props.info - Информационное сообщение для отображения.
+ * @param {Function} props.setIsSaving - Функция для установки состояния сохранения.
+ * @returns {JSX.Element} Рендеринг компонента FileArrayForm.
  */
-function FileArrayForm({
-    array,
-    setArray,
-    isFileValid,
-    setIsFileValid,
-    error,
-    setError,
-    info,
-    setIsSaving,
+function FileArrayForm({ // Функция, которая рендерит компонент FileArrayForm.
+    array, // Массив, представляющий загруженные данные из файла.
+    setArray, // Функция для установки состояния массива.
+    isFileValid, // Флаг, указывающий, является ли загруженный файл допустимым.
+    setIsFileValid, // Функция для установки состояния допустимости файла.
+    error, // Сообщение об ошибке.
+    setError, // Функция для установки состояния ошибки.
+    info, // Информационное сообщение.
+    setIsSaving, // Функция для установки состояния сохранения.
 }) {
     /**
-     * Reads and parses the content of the uploaded file.
+     * Читает и парсит содержимое загруженного файла.
      *
      * @function
-     * @param {File} file - The uploaded file.
+     * @param {File} file - Загруженный файл.
      * @returns {void}
      */
-    const readAndParseFile = (file) => {
-        const reader = new FileReader();
-        reader.onload = handleFileLoad;
-        reader.onerror = handleFileError;
-        reader.readAsText(file);
+    const readAndParseFile = (file) => { // Функция, которая читает и парсит файл.
+        const reader = new FileReader(); // Создаем объект FileReader для чтения файла.
+        reader.onload = handleFileLoad; // Устанавливаем обработчик события загрузки файла.
+        reader.onerror = handleFileError; // Устанавливаем обработчик события ошибки чтения файла.
+        reader.readAsText(file); // Начинаем чтение файла как текст.
     };
 
     /**
-     * Handles the file load event, parses the file content, and updates the component state.
+     * Обрабатывает событие загрузки файла, парсит содержимое файла и обновляет состояние компонента.
      *
      * @function
-     * @param {Event} event - The file load event.
+     * @param {Event} event - Событие загрузки файла.
      * @returns {void}
      */
-    const handleFileLoad = (event) => {
-        const fileContent = event.target.result;
-        const parsedArray = parseFileContent(fileContent);
+    const handleFileLoad = (event) => { // Функция, которая обрабатывает событие загрузки файла.
+        const fileContent = event.target.result; // Извлекаем содержимое файла.
+        const parsedArray = parseFileContent(fileContent); // Парсим содержимое файла.
 
-        if (parsedArray.length > 0) {
+        if (parsedArray.length > 0) { // Если в массиве есть данные, обновляем состояние.
             setArray(parsedArray);
             setIsFileValid(true);
-        } else {
+        } else { // Если массив пуст, устанавливаем сообщение об ошибке.
             setError("Файл не содержит допустимых данных.");
             setIsFileValid(false);
         }
     };
 
     /**
-     * Parses the content of the file, extracting valid integers and filtering out invalid ones.
+     * Парсит содержимое файла, извлекая допустимые целые числа и отфильтровывая недопустимые.
      *
      * @function
-     * @param {string} content - The content of the file.
-     * @returns {Array} An array of valid integers.
+     * @param {string} content - Содержимое файла.
+     * @returns {Array} Массив допустимых целых чисел.
      */
-    const parseFileContent = (content) => {
+    const parseFileContent = (content) => { // Функция, которая парсит содержимое файла, извлекая допустимые целые числа.
         return content
-            .split("\n")
-            .map((line) => {
+            .split("\n") // Разделяем содержимое файла по строкам.
+            .map((line) => { // Преобразуем каждую строку в число.
                 const num = parseInt(line.trim());
-                return !isNaN(num) ? num : null;
+                return !isNaN(num) ? num : null; // Проверяем, является ли число допустимым, и возвращаем его или null.
             })
-            .filter((num) => num !== null);
+            .filter((num) => num !== null); // Фильтруем массив, удаляя null-значения.
     };
 
     /**
-     * Handles file read error by setting an error message and updating the file validity state.
+     * Обрабатывает ошибку чтения файла, устанавливая сообщение об ошибке и обновляя состояние допустимости файла.
      *
      * @function
      * @returns {void}
      */
-    const handleFileError = () => {
+    const handleFileError = () => { // Функция, которая обрабатывает ошибку чтения файла.
         setError("Произошла ошибка при чтении файла.");
         setIsFileValid(false);
     };
 
     /**
-     * Handles the change event when a new file is selected for upload.
+     * Обрабатывает событие изменения, когда выбран новый файл для загрузки.
      *
      * @function
-     * @param {Event} e - The file change event.
+     * @param {Event} e - Событие изменения файла.
      * @returns {void}
      */
-    const handleFileChange = (e) => {
-        const selectedFile = e.target.files[0];
-        setError(null);
+    const handleFileChange = (e) => { // Функция, которая обрабатывает изменение выбора файла.
+        const selectedFile = e.target.files[0]; // Извлекаем выбранный файл.
+        setError(null); // Сбрасываем сообщение об ошибке.
 
-        if (selectedFile) {
-            if (selectedFile.name.endsWith(".txt")) {
-                readAndParseFile(selectedFile);
-            } else {
+        if (selectedFile) { // Если выбран файл.
+            if (selectedFile.name.endsWith(".txt")) { // Проверяем расширение файла.
+                readAndParseFile(selectedFile); // Вызываем функцию для чтения и парсинга файла.
+            } else { // Если расширение не .txt, устанавливаем сообщение об ошибке.
                 setError(
                     "Недопустимый формат файла. Ожидается файл с расширением .txt.",
                 );
@@ -130,39 +130,39 @@ function FileArrayForm({
                 controlId="file-upload"
                 label="Выберите файл:"
                 type="file"
-                accept=".txt"
-                onChange={handleFileChange}
+                accept=".txt" // Устанавливаем тип файлов, которые можно выбрать.
+                onChange={handleFileChange} // Устанавливаем обработчик события изменения выбора файла.
             />
             <ExtractTextArea
                 controlId="file-array"
                 label="Загруженный массив:"
-                value={array.join(", ")}
-                rows={4}
-                disabled
+                value={array.join(", ")} // Отображаем массив,  соединяя  элементы  запятыми.
+                rows={4} // Количество строк текстового поля.
+                disabled // Деактивируем текстовое поле, чтобы пользователь не мог его редактировать.
             />
-            {error && <p className="text-danger text-end">{error}</p>}
-            {info && <p className="text-primary text-end">{info}</p>}
-            <ExtractButtonGroup>
+            {error && <p className="text-danger text-end">{error}</p>} 
+            {info && <p className="text-primary text-end">{info}</p>} 
+            <ExtractButtonGroup> 
                 <Button
-                    variant="info"
-                    className="d-flex align-items-center gap-1"
+                    variant="info" // Цвет кнопки "info".
+                    className="d-flex align-items-center gap-1" // Стили кнопки.
                     type="submit"
-                    onClick={() => setIsSaving(true)}
-                    disabled={array.length === 0}
+                    onClick={() => setIsSaving(true)} // Устанавливаем состояние "Сохранение" при клике на кнопку.
+                    disabled={array.length === 0} // Кнопка деактивирована,  если  массив пуст.
                 >
-                    <CloudUpload /> Сохранить в базу
+                    <CloudUpload /> Сохранить в базу 
                 </Button>
                 <Button
-                    variant="primary"
+                    variant="primary" // Цвет кнопки "primary".
                     type="submit"
-                    className="d-flex align-items-center gap-1"
-                    disabled={!isFileValid || array.length === 0}
+                    className="d-flex align-items-center gap-1" // Стили кнопки.
+                    disabled={!isFileValid || array.length === 0} // Кнопка деактивирована,  если  файл  не  валидный  или  массив  пуст. 
                 >
-                    <SortNumericDown /> Отсортировать
+                    <SortNumericDown /> Отсортировать 
                 </Button>
             </ExtractButtonGroup>
         </>
     );
 }
 
-export default FileArrayForm;
+export default FileArrayForm; // Экспортируем компонент FileArrayForm по умолчанию.

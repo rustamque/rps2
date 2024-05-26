@@ -1,127 +1,127 @@
-import FillMethodSelector from "../selector/FillMethodSelector";
-import { performBucketSort } from "./output/SortedArrayForm";
-import KeyboardArrayForm from "./input/KeyboardArrayForm";
-import DatabaseArrayForm from "./input/DatabaseArrayForm";
-import { useArrayContext } from "../context/ArrayContext";
-import RandomArrayForm from "./input/RandomArrayForm";
-import FileArrayForm from "./input/FileArrayForm";
-import { createArray } from "../../api/api";
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import FillMethodSelector from "../selector/FillMethodSelector"; // Импорт компонента выбора метода заполнения массива.
+import { performBucketSort } from "./output/SortedArrayForm"; // Импорт функции для выполнения блочной сортировки.
+import KeyboardArrayForm from "./input/KeyboardArrayForm"; // Импорт компонента для ввода массива с клавиатуры.
+import DatabaseArrayForm from "./input/DatabaseArrayForm"; // Импорт компонента для выбора массива из базы данных.
+import { useArrayContext } from "../context/ArrayContext"; // Импорт хука для доступа к контексту массива.
+import RandomArrayForm from "./input/RandomArrayForm"; // Импорт компонента для генерации случайного массива.
+import FileArrayForm from "./input/FileArrayForm"; // Импорт компонента для загрузки массива из файла.
+import { createArray } from "../../api/api"; // Импорт функции для создания массива в API.
+import React, { useState } from "react"; // Импорт React для работы с компонентами.
+import { Form } from "react-bootstrap"; // Импорт компонента "Форма" из библиотеки react-bootstrap.
 
 /**
- * CreateArrayForm component provides a form for users to input, generate, or load arrays
- * with various input methods such as keyboard, random generation, file upload, and database selection.
- * Users can choose the fill method and submit the form to either save the array to the database or save
- * and sort the array using the bucket sort algorithm.
+ * Компонент CreateArrayForm предоставляет форму для ввода, генерации или загрузки массивов
+ * с помощью различных методов ввода, таких как клавиатура, случайная генерация, загрузка файлов и выбор из базы данных.
+ * Пользователи могут выбрать метод заполнения и отправить форму, чтобы либо сохранить массив в базе данных, либо сохранить
+ * и отсортировать массив с помощью алгоритма блочной сортировки.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {string} props.apiUrl - The URL for API requests.
- * @returns {JSX.Element} The rendered CreateArrayForm component.
+ * @param {Object} props - Свойства компонента.
+ * @param {string} props.apiUrl - URL для API-запросов.
+ * @returns {JSX.Element} Рендеринг компонента CreateArrayForm.
  */
-function CreateArrayForm({ apiUrl }) {
-    const [isWholeArrayInput, setIsWholeArrayInput] = useState(false);
-    const [currentElement, setCurrentElement] = useState("");
-    const [fillMethod, setFillMethod] = useState("keyboard");
-    const [selectedArray, setSelectedArray] = useState(null);
-    const [isFileValid, setIsFileValid] = useState(false);
-    const [numElements, setNumElements] = useState("10");
-    const [maxValue, setMaxValue] = useState("100");
-    const [minValue, setMinValue] = useState("1");
-    const [error, setError] = useState(null);
-    const [array, setArray] = useState([]);
-    const [info, setInfo] = useState(null);
-    const [isSaving, setIsSaving] = useState(false);
+function CreateArrayForm({ apiUrl }) { // Функция, которая рендерит компонент CreateArrayForm.
+    const [isWholeArrayInput, setIsWholeArrayInput] = useState(false); // Состояние, указывающее, вводится ли весь массив сразу.
+    const [currentElement, setCurrentElement] = useState(""); // Состояние для текущего элемента, вводимого по отдельности.
+    const [fillMethod, setFillMethod] = useState("keyboard"); // Состояние, которое хранит выбранный метод заполнения массива.
+    const [selectedArray, setSelectedArray] = useState(null); // Состояние для выбранного массива из базы данных.
+    const [isFileValid, setIsFileValid] = useState(false); // Флаг, указывающий,  является ли загруженный файл допустимым.
+    const [numElements, setNumElements] = useState("10"); // Состояние для количества элементов.
+    const [maxValue, setMaxValue] = useState("100"); // Состояние для максимального значения.
+    const [minValue, setMinValue] = useState("1"); // Состояние для минимального значения.
+    const [error, setError] = useState(null); // Состояние для сообщения об ошибке.
+    const [array, setArray] = useState([]); // Состояние для массива.
+    const [info, setInfo] = useState(null); // Состояние для информационного сообщения.
+    const [isSaving, setIsSaving] = useState(false); // Состояние, указывающее,  происходит ли сохранение.
 
-    const { setSortedArray, setExecutionTime } = useArrayContext();
+    const { setSortedArray, setExecutionTime } = useArrayContext(); // Получаем функции для обновления состояния отсортированного массива и времени выполнения из контекста.
 
     /**
-     * Handles the form submission, either saving the array to the database or saving and sorting the array.
+     * Обрабатывает отправку формы, либо сохраняя массив в базу данных, либо сохраняя и сортируя массив.
      *
      * @async
      * @function
-     * @param {Object} event - The form submission event.
-     * @returns {Promise<void>} A Promise that resolves once the form submission is processed.
+     * @param {Object} event - Событие отправки формы.
+     * @returns {Promise<void>} Promise, который разрешается после обработки отправки формы.
      */
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setError(null);
-        setInfo(null);
+    const handleSubmit = async (event) => { // Обработчик события отправки формы.
+        event.preventDefault(); // Предотвращаем стандартную обработку отправки формы.
+        setError(null); // Сбрасываем сообщение об ошибке.
+        setInfo(null); // Сбрасываем информационное сообщение.
 
-        let numArray = 0;
+        let numArray = 0; //  Переменная,  которая  будет  хранить  числовой  массив.
 
-        if (isWholeArrayInput) {
-            numArray = array.data.map(Number);
-        } else {
-            numArray = array.map(Number);
+        if (isWholeArrayInput) { // Если ввод массива через пробел.
+            numArray = array.data.map(Number); // Преобразуем массив в числовой массив.
+        } else { // Если ввод отдельных элементов.
+            numArray = array.map(Number); // Преобразуем массив в числовой массив.
         }
 
-        if (isSaving) {
-            const createdArray = await createArray({
-                apiUrl,
-                data: numArray,
-                onSuccess: () => { },
-                onError: setError,
+        if (isSaving) { // Если происходит сохранение.
+            const createdArray = await createArray({ // Вызываем функцию  createArray  для  сохранения  массива  в  API. 
+                apiUrl, // URL  API.
+                data: numArray, // Данные для нового массива.
+                onSuccess: () => { }, // Обработчик успешного создания массива.
+                onError: setError, // Обработчик ошибки создания массива.
             });
 
-            if (createdArray) {
-                setInfo("Массив добавлен в базу.");
+            if (createdArray) { // Если массив был успешно создан.
+                setInfo("Массив добавлен в базу."); // Устанавливаем информационное сообщение.
             }
 
-            setIsSaving(false);
-        } else {
-            await handleSort(numArray);
+            setIsSaving(false); // Сбрасываем состояние "Сохранение".
+        } else { // Если происходит сортировка.
+            await handleSort(numArray); // Вызываем функцию handleSort для сортировки массива.
         }
     };
 
     /**
-     * Handles the sorting of the array, saving it to the database, and updating the component state.
+     * Обрабатывает сортировку массива, сохраняя его в базу данных и обновляя состояние компонента.
      *
      * @async
      * @function
-     * @param {number[]} array - The array to be sorted and saved.
-     * @returns {Promise<void>} A Promise that resolves once the sorting and saving are complete.
+     * @param {number[]} array - Массив, который нужно отсортировать и сохранить.
+     * @returns {Promise<void>} Promise, который разрешается после завершения сортировки и сохранения.
      */
-    const handleSort = async (array) => {
-        const createdArray = await createArray({
+    const handleSort = async (array) => { // Функция, которая обрабатывает сортировку массива.
+        const createdArray = await createArray({ // Создаем массив в API.
             apiUrl,
             data: array,
             onSuccess: () => { },
             onError: setError,
         });
-        
-        if (createdArray) {
-            await performBucketSort(
+
+        if (createdArray) { // Если массив был успешно создан.
+            await performBucketSort( // Выполняем блочную сортировку на бэкенде.
                 apiUrl,
                 createdArray.id,
-                setSortedArray,
-                setExecutionTime,
+                setSortedArray, // Функция для обновления состояния отсортированного массива.
+                setExecutionTime, // Функция для обновления состояния времени выполнения.
             );
 
-            setInfo("Массив добавлен в базу и отсортирован.");
+            setInfo("Массив добавлен в базу и отсортирован."); // Устанавливаем информационное сообщение.
         }
     };
 
     /**
-     * Handles the change of the fill method, resetting the array and updating the component state.
+     * Обрабатывает изменение метода заполнения, сбрасывая массив и обновляя состояние компонента.
      *
      * @function
-     * @param {Object} event - The fill method change event.
+     * @param {Object} event - Событие изменения метода заполнения.
      * @returns {void}
      */
-    const handleFillMethodChange = (event) => {
-        const newFillMethod = event.target.value;
+    const handleFillMethodChange = (event) => { // Функция, которая обрабатывает изменение метода заполнения.
+        const newFillMethod = event.target.value; // Извлекаем новое значение метода заполнения.
 
-        setFillMethod(newFillMethod);
-        setArray([]);
-        setInfo(null);
-        setError(null);
-        setIsFileValid(true);
-        setIsWholeArrayInput(false);
+        setFillMethod(newFillMethod); // Обновляем состояние выбранного метода.
+        setArray([]); // Сбрасываем состояние массива.
+        setInfo(null); // Сбрасываем информационное сообщение.
+        setError(null); // Сбрасываем сообщение об ошибке.
+        setIsFileValid(true); // Устанавливаем состояние валидности файла в true.
+        setIsWholeArrayInput(false); // Сбрасываем состояние ввода массива через пробел.
     };
 
-    const methodComponents = {
+    const methodComponents = { // Объект,  который  содержит  компоненты  для  разных  методов  заполнения. 
         keyboard: (
             <KeyboardArrayForm
                 array={array}
@@ -184,16 +184,16 @@ function CreateArrayForm({ apiUrl }) {
             <Form
                 id="array-form"
                 className="border p-4 rounded mb-4"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit} 
             >
                 <FillMethodSelector
-                    fillMethod={fillMethod}
-                    handleFillMethodChange={handleFillMethodChange}
+                    fillMethod={fillMethod} 
+                    handleFillMethodChange={handleFillMethodChange} 
                 />
-                {methodComponents[fillMethod]}
+                {methodComponents[fillMethod]}  
             </Form>
         </>
     );
 }
 
-export default CreateArrayForm;
+export default CreateArrayForm; // Экспортируем компонент CreateArrayForm по умолчанию.

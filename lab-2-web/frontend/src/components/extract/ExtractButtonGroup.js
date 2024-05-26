@@ -1,23 +1,23 @@
-import { Form } from "react-bootstrap";
+import { Form } from "react-bootstrap"; // Импортируем компонент Form из библиотеки react-bootstrap.
 
 /**
- * Functional component representing a button group within a form.
+ * Функциональный компонент, представляющий группу кнопок внутри формы.
  *
  * @component
- * @param {Object} props - Additional properties for configuring the button group.
- * @param {ReactNode} children - The child elements to be included in the button group.
- * @returns {JSX.Element} The rendered React element for the button group.
+ * @param {Object} props - Дополнительные свойства для конфигурации группы кнопок.
+ * @param {ReactNode} children - Дочерние элементы, которые будут включены в группу кнопок.
+ * @returns {JSX.Element} Рендеринг элемента React для группы кнопок.
  */
-function ExtractButtonGroup({ children, ...props }) {
-    return (
+function ExtractButtonGroup({ children, ...props }) { // Функция, которая рендерит компонент группы кнопок.
+    return ( // Возвращает JSX-разметку компонента.
         <Form.Group
-            controlId="button-group"
-            className="mb-2 d-flex gap-2 justify-content-end align-items-center flex-wrap"
-            {...props}
+            controlId="button-group" // ID группы кнопок.
+            className="mb-2 d-flex gap-2 justify-content-end align-items-center flex-wrap" // Классы для стилизации (отступы, выравнивание, обтекание).
+            {...props} // Передаем все остальные свойства в компонент Form.Group.
         >
-            {children}
+            {children} // Отображаем дочерние элементы (кнопки) внутри группы.
         </Form.Group>
     );
 }
 
-export default ExtractButtonGroup;
+export default ExtractButtonGroup; // Экспортируем компонент ExtractButtonGroup по умолчанию.
